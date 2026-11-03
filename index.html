@@ -1,0 +1,1304 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>English Fast — Frases do Cotidiano</title>
+<style>
+  :root{
+    --bg:#0f172a;--bg2:#1e293b;--card:#1e293b;--card2:#334155;
+    --text:#f1f5f9;--muted:#94a3b8;--primary:#38bdf8;--primary-dark:#0ea5e9;
+    --success:#22c55e;--danger:#ef4444;--warning:#f59e0b;--purple:#a78bfa;
+    --radius:14px;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',system-ui,-apple-system,sans-serif;}
+  body{background:linear-gradient(135deg,#0f172a 0%,#1e1b4b 100%);color:var(--text);min-height:100vh;padding-bottom:80px;}
+
+  header{background:rgba(15,23,42,.92);backdrop-filter:blur(10px);padding:14px 20px;position:sticky;top:0;z-index:100;border-bottom:1px solid #334155;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;}
+  header h1{font-size:1.2rem;display:flex;align-items:center;gap:8px;}
+  header h1 span{color:var(--primary);}
+  .header-info{display:flex;gap:8px;align-items:center;}
+  .pill{background:var(--card2);padding:6px 12px;border-radius:20px;font-size:.78rem;color:var(--muted);}
+  .pill strong{color:var(--primary);}
+  .pill.fire strong{color:var(--warning);}
+
+  nav{display:flex;gap:8px;padding:14px 20px;overflow-x:auto;scrollbar-width:none;}
+  nav::-webkit-scrollbar{display:none;}
+  nav button{background:var(--card);border:1px solid #334155;color:var(--muted);padding:9px 16px;border-radius:20px;cursor:pointer;font-size:.83rem;white-space:nowrap;transition:.2s;font-weight:500;}
+  nav button:hover{border-color:var(--primary);color:var(--text);}
+  nav button.active{background:var(--primary);color:#0f172a;border-color:var(--primary);font-weight:700;}
+
+  main{padding:0 20px;max-width:820px;margin:0 auto;}
+  .page{display:none;animation:fade .3s ease;}
+  .page.active{display:block;}
+  @keyframes fade{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:none;}}
+
+  .card{background:var(--card);border:1px solid #334155;border-radius:var(--radius);padding:20px;margin-bottom:16px;}
+  .card h2{font-size:1.05rem;margin-bottom:12px;color:var(--primary);}
+  .card h3{font-size:.95rem;margin:14px 0 8px;color:#cbd5e1;}
+  .card p{color:#cbd5e1;line-height:1.6;font-size:.92rem;}
+  .card ul{margin-left:20px;color:#cbd5e1;line-height:1.8;font-size:.9rem;}
+
+  .ex{background:#0f172a;border-left:3px solid var(--primary);padding:10px 12px;border-radius:6px;margin:8px 0;font-size:.9rem;}
+  .ex .en-text{font-family:'Consolas',monospace;color:#7dd3fc;display:block;}
+  .ex .pt-text{color:var(--muted);font-size:.82rem;margin-top:3px;display:block;}
+  .ex.wrong{border-left-color:var(--danger);}
+  .ex.wrong .en-text{color:#fca5a5;}
+  .ex.right{border-left-color:var(--success);}
+  .ex.right .en-text{color:#86efac;}
+
+  .audio-btn{background:none;border:none;color:var(--primary);cursor:pointer;font-size:1rem;margin-left:6px;vertical-align:middle;transition:.2s;}
+  .audio-btn:hover{transform:scale(1.2);}
+
+  .btn{background:var(--primary);color:#0f172a;border:none;padding:12px 24px;border-radius:10px;font-weight:700;cursor:pointer;font-size:.92rem;transition:.2s;width:100%;margin-top:12px;}
+  .btn:hover{background:var(--primary-dark);transform:translateY(-1px);}
+  .btn:disabled{opacity:.5;cursor:not-allowed;transform:none;}
+  .btn.ghost{background:transparent;border:1px solid #475569;color:var(--text);}
+  .btn.ghost:hover{background:var(--card2);}
+
+  /* HOME */
+  .hero{background:linear-gradient(135deg,#0ea5e9,#6366f1);border-radius:var(--radius);padding:24px;margin-bottom:16px;text-align:center;}
+  .hero h2{font-size:1.3rem;margin-bottom:8px;color:#fff;}
+  .hero p{color:#e0f2fe;font-size:.9rem;line-height:1.5;}
+  .phrase-day{background:linear-gradient(135deg,#1e293b,#334155);border:1px solid #475569;border-radius:var(--radius);padding:20px;margin-bottom:16px;}
+  .phrase-day .label{font-size:.75rem;color:var(--warning);font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;}
+  .phrase-day .en{font-size:1.2rem;font-weight:700;color:#7dd3fc;margin-bottom:6px;}
+  .phrase-day .pt{font-size:.92rem;color:var(--muted);margin-bottom:8px;}
+  .phrase-day .ex{font-size:.85rem;}
+
+  .stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:12px;margin-bottom:16px;}
+  .stat-box{background:var(--card);border:1px solid #334155;border-radius:12px;padding:14px;text-align:center;}
+  .stat-box .num{font-size:1.6rem;font-weight:800;color:var(--primary);line-height:1;}
+  .stat-box .lbl{font-size:.72rem;color:var(--muted);margin-top:6px;text-transform:uppercase;letter-spacing:.5px;}
+
+  /* CATEGORY GRID */
+  .cat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px;margin-bottom:16px;}
+  .cat-btn{background:var(--card);border:1px solid #334155;border-radius:12px;padding:14px 10px;cursor:pointer;transition:.2s;text-align:center;color:var(--text);}
+  .cat-btn:hover{border-color:var(--primary);transform:translateY(-2px);}
+  .cat-btn .cat-icon{font-size:1.6rem;display:block;margin-bottom:6px;}
+  .cat-btn .cat-name{font-size:.82rem;font-weight:600;}
+  .cat-btn .cat-progress{font-size:.7rem;color:var(--muted);margin-top:4px;}
+  .cat-btn .mini-bar{height:3px;background:#0f172a;border-radius:2px;margin-top:6px;overflow:hidden;}
+  .cat-btn .mini-bar > div{height:100%;background:var(--success);transition:width .3s;}
+
+  /* FLASHCARD */
+  .flash-container{display:flex;flex-direction:column;align-items:center;gap:14px;}
+  .card-status{display:flex;justify-content:space-between;width:100%;max-width:460px;font-size:.8rem;color:var(--muted);}
+  .flashcard{width:100%;max-width:460px;height:260px;perspective:1000px;cursor:pointer;position:relative;}
+  .flashcard-inner{position:relative;width:100%;height:100%;transition:transform .6s;transform-style:preserve-3d;}
+  .flashcard.flipped .flashcard-inner{transform:rotateY(180deg);}
+  .flash-face{position:absolute;width:100%;height:100%;backface-visibility:hidden;border-radius:var(--radius);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px;text-align:center;border:1px solid #334155;}
+  .flash-front{background:linear-gradient(135deg,#1e293b,#334155);}
+  .flash-back{background:linear-gradient(135deg,#0ea5e9,#6366f1);transform:rotateY(180deg);}
+  .flash-word{font-size:1.25rem;font-weight:700;margin-bottom:10px;line-height:1.4;}
+  .flash-ex{font-size:.82rem;color:var(--muted);margin-top:8px;font-family:'Consolas',monospace;}
+  .flash-hint{font-size:.78rem;color:var(--muted);margin-top:14px;}
+  .flash-back .flash-hint{color:#e0f2fe;}
+  .flash-back .flash-word{color:#fff;font-size:1.15rem;}
+
+  .grade-btns{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;width:100%;max-width:460px;margin-top:8px;}
+  .grade-btn{border:none;padding:12px 4px;border-radius:10px;font-weight:700;cursor:pointer;font-size:.72rem;transition:.2s;color:#fff;line-height:1.2;}
+  .grade-btn small{display:block;font-weight:400;font-size:.68rem;opacity:.85;margin-top:2px;}
+  .grade-0{background:#dc2626;}
+  .grade-1{background:#f59e0b;}
+  .grade-2{background:#3b82f6;}
+  .grade-3{background:#22c55e;}
+  .grade-btn:hover{transform:translateY(-2px);filter:brightness(1.1);}
+
+  .flash-nav{display:flex;gap:10px;width:100%;max-width:460px;}
+
+  /* QUIZ */
+  .quiz-q{font-size:1rem;margin-bottom:14px;line-height:1.5;}
+  .quiz-opts{display:flex;flex-direction:column;gap:10px;}
+  .quiz-opt{background:var(--bg);border:1px solid #334155;color:var(--text);padding:12px 16px;border-radius:10px;cursor:pointer;text-align:left;transition:.2s;font-size:.92rem;}
+  .quiz-opt:hover{border-color:var(--primary);}
+  .quiz-opt.correct{background:rgba(34,197,94,.15);border-color:var(--success);color:#86efac;}
+  .quiz-opt.wrong{background:rgba(239,68,68,.15);border-color:var(--danger);color:#fca5a5;}
+  .quiz-opt:disabled{cursor:not-allowed;}
+  .quiz-feedback{margin-top:14px;padding:10px;border-radius:8px;font-size:.9rem;display:none;}
+  .quiz-feedback.show{display:block;}
+  .quiz-feedback.ok{background:rgba(34,197,94,.15);color:#86efac;}
+  .quiz-feedback.err{background:rgba(239,68,68,.15);color:#fca5a5;}
+
+  .score-badge{text-align:center;font-size:1rem;margin-bottom:16px;color:var(--muted);}
+  .score-badge strong{color:var(--primary);font-size:1.4rem;}
+
+  /* DIALOGUES */
+  .dialogue-card{background:var(--card);border:1px solid #334155;border-radius:var(--radius);padding:16px;margin-bottom:12px;cursor:pointer;transition:.2s;}
+  .dialogue-card:hover{border-color:var(--primary);}
+  .dialogue-card .dlg-title{font-size:1rem;font-weight:700;color:var(--text);display:flex;align-items:center;gap:8px;}
+  .dialogue-card .dlg-sub{font-size:.8rem;color:var(--muted);margin-top:4px;margin-left:30px;}
+  .dialogue-view{display:none;}
+  .dialogue-view.active{display:block;}
+  .dlg-line{padding:10px 12px;border-radius:8px;margin-bottom:8px;cursor:pointer;transition:.15s;border-left:3px solid transparent;}
+  .dlg-line:hover{background:rgba(56,189,248,.05);border-left-color:var(--primary);}
+  .dlg-line .speaker{font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--primary);margin-bottom:4px;}
+  .dlg-line .speaker.b{color:var(--purple);}
+  .dlg-line .en{font-size:.95rem;color:var(--text);font-family:'Consolas',monospace;}
+  .dlg-line .pt{font-size:.82rem;color:var(--muted);margin-top:3px;}
+
+  /* PLANO */
+  .week{background:var(--card);border:1px solid #334155;border-radius:var(--radius);padding:16px;margin-bottom:12px;position:relative;}
+  .week h3{color:var(--primary);font-size:1rem;margin-bottom:8px;}
+  .week p{font-size:.9rem;color:#cbd5e1;line-height:1.6;}
+  .week .tag{display:inline-block;background:var(--card2);color:var(--primary);padding:3px 10px;border-radius:12px;font-size:.75rem;margin-top:8px;margin-right:6px;}
+  .week .day-list{margin-top:10px;font-size:.85rem;color:var(--muted);line-height:1.7;}
+
+  footer{text-align:center;color:var(--muted);font-size:.75rem;padding:20px;margin-top:20px;}
+
+  @media(max-width:480px){
+    header h1{font-size:1rem;}
+    .flash-word{font-size:1.1rem;}
+    .grade-btn{font-size:.68rem;padding:10px 2px;}
+    .grade-btn small{font-size:.62rem;}
+  }
+
+  .back-btn{background:transparent;border:none;color:var(--primary);cursor:pointer;font-size:.9rem;font-weight:600;padding:0;margin-bottom:12px;display:flex;align-items:center;gap:6px;}
+  .back-btn:hover{text-decoration:underline;}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>🇬🇧 English<span>Fast</span></h1>
+  <div class="header-info">
+    <div class="pill fire" title="Dias seguidos de estudo">🔥 <strong id="streakNum">0</strong></div>
+    <div class="pill" title="Frases dominadas">📚 <strong id="masteredNum">0</strong></div>
+  </div>
+</header>
+
+<nav>
+  <button class="active" data-page="home">🏠 Início</button>
+  <button data-page="learn">🎯 Aprender</button>
+  <button data-page="dialogues">💬 Diálogos</button>
+  <button data-page="practice">🎧 Praticar</button>
+  <button data-page="plan">📅 Plano</button>
+  <button data-page="stats">📊 Progresso</button>
+</nav>
+
+<main>
+
+<!-- ============ HOME ============ -->
+<section class="page active" id="home">
+  <div class="hero">
+    <h2>Aprenda frases que você USA de verdade</h2>
+    <p>100 frases do cotidiano organizadas por situação, com áudio, tradução e repetição espaçada para fixar de verdade.</p>
+  </div>
+
+  <div class="phrase-day" id="phraseDay">
+    <div class="label">✨ Frase do dia</div>
+    <div class="en" id="pdEn">—</div>
+    <div class="pt" id="pdPt">—</div>
+    <div class="ex" id="pdEx"></div>
+    <button class="audio-btn" style="font-size:1.3rem;margin-top:10px;" onclick="speak(document.getElementById('pdEn').textContent)">🔊 Ouvir</button>
+  </div>
+
+  <div class="stats-grid">
+    <div class="stat-box"><div class="num" id="homeStudied">0</div><div class="lbl">Frases vistas</div></div>
+    <div class="stat-box"><div class="num" id="homeMastered">0</div><div class="lbl">Dominadas</div></div>
+    <div class="stat-box"><div class="num" id="homeDue">0</div><div class="lbl">Para revisar</div></div>
+  </div>
+
+  <div class="card">
+    <h2>🧠 Como este app te faz aprender rápido</h2>
+    <ul>
+      <li><strong>Repetição espaçada:</strong> frases voltam no momento certo de revisar.</li>
+      <li><strong>Recordação ativa:</strong> você tenta lembrar antes de ver a resposta.</li>
+      <li><strong>Contexto real:</strong> diálogos e exemplos do dia a dia.</li>
+      <li><strong>Dupla codificação:</strong> texto + áudio juntos.</li>
+      <li><strong>Hábito:</strong> estude 15 min por dia — streak conta os dias seguidos.</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2>🚀 Comece por aqui</h2>
+    <p>1️⃣ Vá em <strong>Aprender</strong> e escolha uma categoria.<br>
+       2️⃣ Avalie cada frase (Não sei / Difícil / Médio / Fácil).<br>
+       3️⃣ Use <strong>Praticar</strong> para testar escuta e leitura.<br>
+       4️⃣ Explore <strong>Diálogos</strong> para ver tudo em contexto.</p>
+  </div>
+</section>
+
+<!-- ============ LEARN ============ -->
+<section class="page" id="learn">
+  <!-- Category picker -->
+  <div id="learnPicker">
+    <div class="card">
+      <h2>🎯 Escolha uma categoria</h2>
+      <p style="margin-bottom:14px;">Cada categoria tem 10 frases do cotidiano com áudio e exemplo.</p>
+      <div class="cat-grid" id="catGrid"></div>
+      <button class="btn" onclick="startReview()">🔁 Revisão do dia (frases que você precisa revisar)</button>
+    </div>
+  </div>
+
+  <!-- Flashcard view -->
+  <div id="learnFlash" style="display:none;">
+    <button class="back-btn" onclick="backToPicker()">← Voltar às categorias</button>
+    <div class="card flash-container">
+      <div class="card-status">
+        <span id="learnCatName">—</span>
+        <span><span id="learnIdx">1</span> / <span id="learnTotal">10</span></span>
+      </div>
+
+      <div class="flashcard" id="flashcard" onclick="flipCard()">
+        <div class="flashcard-inner">
+          <div class="flash-face flash-front">
+            <button class="audio-btn" style="position:absolute;top:12px;right:12px;font-size:1.3rem;" onclick="event.stopPropagation();speakCurrent()">🔊</button>
+            <div class="flash-word" id="frontWord">—</div>
+            <div class="flash-hint">Toque para revelar a tradução</div>
+          </div>
+          <div class="flash-face flash-back">
+            <div class="flash-word" id="backWord">—</div>
+            <div class="flash-ex" id="backEx"></div>
+            <div class="flash-hint">Como foi lembrar?</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="grade-btns" id="gradeBtns">
+        <button class="grade-btn grade-0" onclick="grade(0)">Não sei<small>de novo</small></button>
+        <button class="grade-btn grade-1" onclick="grade(1)">Difícil<small>1 dia</small></button>
+        <button class="grade-btn grade-2" onclick="grade(2)">Médio<small>3 dias</small></button>
+        <button class="grade-btn grade-3" onclick="grade(3)">Fácil<small>7 dias</small></button>
+      </div>
+
+      <div class="flash-nav">
+        <button class="btn ghost" onclick="skipCard()">Pular</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ DIALOGUES ============ -->
+<section class="page" id="dialogues">
+  <div id="dlgList">
+    <div class="card">
+      <h2>💬 Diálogos do cotidiano</h2>
+      <p style="margin-bottom:14px;">Ouça cada situação real: restaurante, hotel, entrevista e mais.</p>
+    </div>
+    <div id="dialogueCards"></div>
+  </div>
+
+  <div id="dlgView" class="dialogue-view">
+    <button class="back-btn" onclick="closeDialogue()">← Voltar aos diálogos</button>
+    <div class="card">
+      <h2 id="dlgTitle">—</h2>
+      <p style="margin-bottom:14px;font-size:.85rem;">Clique em qualquer fala para ouvir. 🔊</p>
+      <div id="dlgLines"></div>
+      <button class="btn" onclick="playAllDialogue()">▶️ Tocar tudo em sequência</button>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PRACTICE ============ -->
+<section class="page" id="practice">
+  <div class="card">
+    <h2>🎧 Praticar</h2>
+    <p style="margin-bottom:14px;">Três modos complementares para fixar o que aprendeu.</p>
+    <button class="btn" onclick="startListen()">🎧 Modo escuta (ouvir e escolher)</button>
+    <button class="btn ghost" onclick="startQuiz()">📝 Quiz de gramática</button>
+  </div>
+
+  <!-- Listen mode -->
+  <div id="listenView" style="display:none;">
+    <button class="back-btn" onclick="closeListen()">← Voltar</button>
+    <div class="card">
+      <div class="score-badge">Questão <strong id="lNum">1</strong>/<strong id="lTotal">10</strong> • Acertos: <strong id="lScore">0</strong></div>
+      <div style="text-align:center;margin:20px 0;">
+        <button class="audio-btn" style="font-size:3rem;" onclick="speakListenPrompt()">🔊</button>
+        <p style="color:var(--muted);font-size:.85rem;margin-top:8px;">Toque para ouvir de novo</p>
+      </div>
+      <div class="quiz-opts" id="lOpts"></div>
+      <div class="quiz-feedback" id="lFb"></div>
+      <button class="btn" id="lNext" onclick="nextListen()" disabled>Próxima →</button>
+    </div>
+  </div>
+
+  <!-- Grammar quiz -->
+  <div id="quizView" style="display:none;">
+    <button class="back-btn" onclick="closeQuiz()">← Voltar</button>
+    <div class="card" id="quizCard">
+      <div class="score-badge">Questão <strong id="qNum">1</strong>/<strong id="qTotal">0</strong> • Acertos: <strong id="qScore">0</strong></div>
+      <div class="quiz-q" id="qText">—</div>
+      <div class="quiz-opts" id="qOpts"></div>
+      <div class="quiz-feedback" id="qFeedback"></div>
+      <button class="btn" id="qNext" onclick="nextQuizQuestion()" disabled>Próxima →</button>
+    </div>
+    <div class="card" id="quizResult" style="display:none;text-align:center;">
+      <h2>🎉 Quiz concluído!</h2>
+      <p style="font-size:2rem;margin:14px 0;color:var(--primary);" id="finalScore">0/0</p>
+      <p id="finalMsg" style="color:var(--muted);"></p>
+      <button class="btn" onclick="restartQuiz()">Jogar novamente</button>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PLAN ============ -->
+<section class="page" id="plan">
+  <div class="card">
+    <h2>📅 Plano de 30 dias</h2>
+    <p>Cada semana foca em uma habilidade. 15-20 minutos por dia, todos os dias.</p>
+  </div>
+
+  <div class="week">
+    <h3>Semana 1 — Sobrevivência</h3>
+    <p>Foco em saudações, small talk e como se apresentar.</p>
+    <div class="day-list">
+      <strong>Dia 1-2:</strong> Categoria Saudação + Small Talk<br>
+      <strong>Dia 3-4:</strong> Modo escuta + frase do dia<br>
+      <strong>Dia 5-6:</strong> Diálogo "Conhecendo alguém"<br>
+      <strong>Dia 7:</strong> Revisão geral da semana
+    </div>
+    <span class="tag">Saudações</span><span class="tag">Small Talk</span><span class="tag">Listening</span>
+  </div>
+
+  <div class="week">
+    <h3>Semana 2 — Dia a dia</h3>
+    <p>Restaurante, compras, café e situações comuns.</p>
+    <div class="day-list">
+      <strong>Dia 8-9:</strong> Categoria Restaurante<br>
+      <strong>Dia 10-11:</strong> Categoria Compras + Diálogo "No Café"<br>
+      <strong>Dia 12-13:</strong> Categoria Telefone<br>
+      <strong>Dia 14:</strong> Quiz + revisão
+    </div>
+    <span class="tag">Restaurante</span><span class="tag">Compras</span><span class="tag">Telefone</span>
+  </div>
+
+  <div class="week">
+    <h3>Semana 3 — Viagem e trabalho</h3>
+    <p>Frases para aeroporto, hotel e ambiente profissional.</p>
+    <div class="day-list">
+      <strong>Dia 15-16:</strong> Categoria Viagem + Diálogo "Hotel"<br>
+      <strong>Dia 17-18:</strong> Categoria Direções<br>
+      <strong>Dia 19-20:</strong> Categoria Trabalho + Diálogo "Entrevista"<br>
+      <strong>Dia 21:</strong> Revisão de todas as categorias
+    </div>
+    <span class="tag">Viagem</span><span class="tag">Trabalho</span><span class="tag">Direções</span>
+  </div>
+
+  <div class="week">
+    <h3>Semana 4 — Confiança</h3>
+    <p>Emergências, emoções e prática intensiva de revisão.</p>
+    <div class="day-list">
+      <strong>Dia 22-23:</strong> Categoria Emergências + Saúde<br>
+      <strong>Dia 24-25:</strong> Categoria Emoções + Opiniões<br>
+      <strong>Dia 26-28:</strong> Modo revisão + Quiz intensivo<br>
+      <strong>Dia 29-30:</strong> Diálogos completos + replay geral
+    </div>
+    <span class="tag">Emergências</span><span class="tag">Emoções</span><span class="tag">Revisão</span>
+  </div>
+
+  <div class="card">
+    <h2>📚 Recursos extras</h2>
+    <ul>
+      <li><strong>BBC Learning English</strong> — gramática e escuta</li>
+      <li><strong>Rachel's English</strong> — pronúncia</li>
+      <li><strong>Tandem / HelloTalk</strong> — conversação com nativos</li>
+      <li><strong>ChatGPT</strong> — simular diálogos personalizados</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============ STATS ============ -->
+<section class="page" id="stats">
+  <div class="card">
+    <h2>📊 Seu progresso</h2>
+    <div class="stats-grid">
+      <div class="stat-box"><div class="num" id="stStreak">0</div><div class="lbl">🔥 Streak</div></div>
+      <div class="stat-box"><div class="num" id="stSeen">0</div><div class="lbl">👀 Vistas</div></div>
+      <div class="stat-box"><div class="num" id="stMastered">0</div><div class="lbl">🏆 Dominadas</div></div>
+      <div class="stat-box"><div class="num" id="stDue">0</div><div class="lbl">🔁 Revisar</div></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Por categoria</h2>
+    <div id="statsByCat"></div>
+  </div>
+
+  <div class="card">
+    <h2>⚙️ Ações</h2>
+    <button class="btn ghost" onclick="resetAll()">🗑️ Apagar todo o progresso</button>
+  </div>
+</section>
+
+</main>
+
+<footer>EnglishFast • Aprenda rápido estudando pouco e sempre 💪</footer>
+
+<script>
+/* =========================================================
+   UTILITÁRIOS
+   ========================================================= */
+function speak(text, rate=0.85){
+  if(!('speechSynthesis' in window)) return;
+  window.speechSynthesis.cancel();
+  const u = new SpeechSynthesisUtterance(text);
+  u.lang = 'en-US';
+  u.rate = rate;
+  window.speechSynthesis.speak(u);
+}
+
+function todayStr(){ return new Date().toISOString().slice(0,10); }
+
+function daysFromNow(days){
+  const d = new Date();
+  d.setDate(d.getDate() + days);
+  return d.toISOString().slice(0,10);
+}
+
+function shuffle(arr){
+  const a = arr.slice();
+  for(let i=a.length-1;i>0;i--){
+    const j = Math.floor(Math.random()*(i+1));
+    [a[i],a[j]]=[a[j],a[i]];
+  }
+  return a;
+}
+
+/* =========================================================
+   DADOS — categorias com 10 frases cada
+   ========================================================= */
+const categories = [
+  {
+    id: "greetings", name: "Saudações", icon: "👋",
+    phrases: [
+      {en:"Hi, how are you?", pt:"Oi, como você está?", ex:"A: Hi, how are you? B: I'm good, thanks!", exPt:"A: Oi, como você está? B: Estou bem, obrigado!"},
+      {en:"Good morning!", pt:"Bom dia!", ex:"Good morning! Did you sleep well?", exPt:"Bom dia! Você dormiu bem?"},
+      {en:"Nice to meet you.", pt:"Prazer em conhecer você.", ex:"Nice to meet you. My name is Ana.", exPt:"Prazer em te conhecer. Meu nome é Ana."},
+      {en:"What's your name?", pt:"Qual é o seu nome?", ex:"What's your name? I'm Lucas.", exPt:"Qual é o seu nome? Eu sou Lucas."},
+      {en:"How's it going?", pt:"Como vai?", ex:"Hey! How's it going?", exPt:"E aí! Como vai?"},
+      {en:"Long time no see!", pt:"Quanto tempo!", ex:"Long time no see! How have you been?", exPt:"Quanto tempo! Como você tem passado?"},
+      {en:"See you later.", pt:"Até mais tarde.", ex:"I have to go. See you later!", exPt:"Eu tenho que ir. Até mais tarde!"},
+      {en:"Have a nice day!", pt:"Tenha um bom dia!", ex:"Thanks for your help! Have a nice day!", exPt:"Obrigado pela ajuda! Tenha um bom dia!"},
+      {en:"Take care!", pt:"Se cuide!", ex:"Goodbye and take care!", exPt:"Adeus e se cuide!"},
+      {en:"Where are you from?", pt:"De onde você é?", ex:"Where are you from? I'm from Brazil.", exPt:"De onde você é? Eu sou do Brasil."}
+    ]
+  },
+  {
+    id: "smalltalk", name: "Small Talk", icon: "💬",
+    phrases: [
+      {en:"How was your weekend?", pt:"Como foi seu fim de semana?", ex:"How was your weekend? I went to the beach.", exPt:"Como foi seu fim de semana? Eu fui à praia."},
+      {en:"What do you do for a living?", pt:"O que você faz da vida?", ex:"What do you do for a living? I'm a teacher.", exPt:"O que você faz da vida? Eu sou professor."},
+      {en:"I couldn't agree more.", pt:"Concordo plenamente.", ex:"I couldn't agree more with you.", exPt:"Eu concordo plenamente com você."},
+      {en:"That makes sense.", pt:"Isso faz sentido.", ex:"Oh, that makes sense now!", exPt:"Ah, isso faz sentido agora!"},
+      {en:"What do you mean?", pt:"O que você quer dizer?", ex:"Sorry, what do you mean?", exPt:"Desculpe, o que você quer dizer?"},
+      {en:"Tell me more about it.", pt:"Me conte mais sobre isso.", ex:"That sounds interesting. Tell me more about it.", exPt:"Parece interessante. Me conte mais sobre isso."},
+      {en:"I'm not sure about that.", pt:"Não tenho certeza disso.", ex:"I'm not sure about that, let me check.", exPt:"Não tenho certeza disso, deixe-me verificar."},
+      {en:"That's a good point.", pt:"Esse é um bom ponto.", ex:"That's a good point. I hadn't thought of that.", exPt:"Esse é um bom ponto. Eu não tinha pensado nisso."},
+      {en:"How long have you been here?", pt:"Há quanto tempo você está aqui?", ex:"How long have you been here? About two years.", exPt:"Há quanto tempo você está aqui? Cerca de dois anos."},
+      {en:"Let me think about it.", pt:"Deixe-me pensar nisso.", ex:"That's a big decision. Let me think about it.", exPt:"Essa é uma grande decisão. Deixe-me pensar nisso."}
+    ]
+  },
+  {
+    id: "restaurant", name: "Restaurante", icon: "🍽️",
+    phrases: [
+      {en:"A table for two, please.", pt:"Uma mesa para dois, por favor.", ex:"Good evening. A table for two, please.", exPt:"Boa noite. Uma mesa para dois, por favor."},
+      {en:"Can I see the menu?", pt:"Posso ver o cardápio?", ex:"Excuse me, can I see the menu?", exPt:"Com licença, posso ver o cardápio?"},
+      {en:"What do you recommend?", pt:"O que você recomenda?", ex:"I'm not sure. What do you recommend?", exPt:"Não tenho certeza. O que você recomenda?"},
+      {en:"I'll have the chicken, please.", pt:"Vou querer o frango, por favor.", ex:"I'll have the chicken, please. And a salad.", exPt:"Vou querer o frango, por favor. E uma salada."},
+      {en:"I'm allergic to peanuts.", pt:"Sou alérgico(a) a amendoim.", ex:"Important: I'm allergic to peanuts.", exPt:"Importante: sou alérgico a amendoim."},
+      {en:"Could I get the bill, please?", pt:"Poderia trazer a conta, por favor?", ex:"We're done. Could I get the bill, please?", exPt:"Terminamos. Poderia trazer a conta, por favor?"},
+      {en:"Is this spicy?", pt:"Isto é picante?", ex:"Is this spicy? I don't like spicy food.", exPt:"Isto é picante? Não gosto de comida picante."},
+      {en:"It was delicious!", pt:"Estava delicioso!", ex:"Thank you! It was delicious!", exPt:"Obrigado! Estava delicioso!"},
+      {en:"Can I have this to go?", pt:"Posso levar isto para viagem?", ex:"I can't finish this. Can I have it to go?", exPt:"Não consigo terminar. Posso levar para viagem?"},
+      {en:"Water, please.", pt:"Água, por favor.", ex:"Just water, please. No ice.", exPt:"Só água, por favor. Sem gelo."}
+    ]
+  },
+  {
+    id: "shopping", name: "Compras", icon: "🛍️",
+    phrases: [
+      {en:"How much is this?", pt:"Quanto custa isto?", ex:"Excuse me, how much is this?", exPt:"Com licença, quanto custa isto?"},
+      {en:"Do you have this in a medium?", pt:"Você tem isto em tamanho médio?", ex:"I like this shirt. Do you have this in a medium?", exPt:"Gostei desta camisa. Você tem em médio?"},
+      {en:"Can I try it on?", pt:"Posso experimentar?", ex:"Nice dress! Can I try it on?", exPt:"Vestido bonito! Posso experimentar?"},
+      {en:"I'm just looking, thanks.", pt:"Só estou olhando, obrigado.", ex:"Can I help? — I'm just looking, thanks.", exPt:"Posso ajudar? — Só estou olhando, obrigado."},
+      {en:"Do you accept credit cards?", pt:"Aceita cartão de crédito?", ex:"Do you accept credit cards?", exPt:"Aceita cartão de crédito?"},
+      {en:"That's too expensive.", pt:"Isso é muito caro.", ex:"Wow, that's too expensive for me.", exPt:"Uau, isso é muito caro para mim."},
+      {en:"I'll take it.", pt:"Vou levar.", ex:"It fits perfectly. I'll take it.", exPt:"Serviu perfeitamente. Vou levar."},
+      {en:"Where's the fitting room?", pt:"Onde é o provador?", ex:"Excuse me, where's the fitting room?", exPt:"Com licença, onde é o provador?"},
+      {en:"Is there a discount?", pt:"Tem desconto?", ex:"Is there a discount for cash payment?", exPt:"Tem desconto para pagamento em dinheiro?"},
+      {en:"Can I get a refund?", pt:"Posso pedir reembolso?", ex:"It doesn't fit. Can I get a refund?", exPt:"Não serviu. Posso pedir reembolso?"}
+    ]
+  },
+  {
+    id: "travel", name: "Viagem", icon: "✈️",
+    phrases: [
+      {en:"Where's the check-in?", pt:"Onde é o check-in?", ex:"Excuse me, where's the check-in for flight 302?", exPt:"Com licença, onde é o check-in do voo 302?"},
+      {en:"I have a reservation.", pt:"Tenho uma reserva.", ex:"Good evening. I have a reservation under Silva.", exPt:"Boa noite. Tenho uma reserva no nome Silva."},
+      {en:"My flight is delayed.", pt:"Meu voo está atrasado.", ex:"My flight is delayed by two hours.", exPt:"Meu voo está atrasado em duas horas."},
+      {en:"Where's gate 5?", pt:"Onde fica o portão 5?", ex:"Excuse me, where's gate 5?", exPt:"Com licença, onde fica o portão 5?"},
+      {en:"Is breakfast included?", pt:"O café da manhã está incluso?", ex:"Is breakfast included in the price?", exPt:"O café da manhã está incluso no preço?"},
+      {en:"What's the Wi-Fi password?", pt:"Qual é a senha do Wi-Fi?", ex:"Excuse me, what's the Wi-Fi password?", exPt:"Com licença, qual é a senha do Wi-Fi?"},
+      {en:"Can I have a wake-up call?", pt:"Pode me acordar com uma chamada?", ex:"Can I have a wake-up call at 7 a.m.?", exPt:"Pode me acordar às 7 da manhã?"},
+      {en:"I lost my luggage.", pt:"Perdi minha bagagem.", ex:"Help! I lost my luggage.", exPt:"Socorro! Perdi minha bagagem."},
+      {en:"How do I get to the airport?", pt:"Como chego ao aeroporto?", ex:"Excuse me, how do I get to the airport?", exPt:"Com licença, como chego ao aeroporto?"},
+      {en:"I'd like to check out.", pt:"Gostaria de fazer o check-out.", ex:"Good morning. I'd like to check out, please.", exPt:"Bom dia. Gostaria de fazer o check-out, por favor."}
+    ]
+  },
+  {
+    id: "directions", name: "Direções", icon: "🚕",
+    phrases: [
+      {en:"Excuse me, how do I get to...?", pt:"Com licença, como chego a...?", ex:"Excuse me, how do I get to the museum?", exPt:"Com licença, como chego ao museu?"},
+      {en:"Is it far from here?", pt:"É longe daqui?", ex:"Is it far from here? — No, five minutes.", exPt:"É longe daqui? — Não, cinco minutos."},
+      {en:"Turn left / right.", pt:"Vire à esquerda / direita.", ex:"Go straight, then turn left.", exPt:"Siga reto, depois vire à esquerda."},
+      {en:"Go straight ahead.", pt:"Siga em frente.", ex:"Go straight ahead for two blocks.", exPt:"Siga em frente por dois quarteirões."},
+      {en:"Where's the nearest subway?", pt:"Onde é o metrô mais próximo?", ex:"Excuse me, where's the nearest subway station?", exPt:"Com licença, onde é a estação de metrô mais próxima?"},
+      {en:"How much is a ticket?", pt:"Quanto custa uma passagem?", ex:"How much is a ticket to downtown?", exPt:"Quanto custa uma passagem para o centro?"},
+      {en:"Can you take me to this address?", pt:"Pode me levar a este endereço?", ex:"Hi, can you take me to this address?", exPt:"Oi, pode me levar a este endereço?"},
+      {en:"I'm lost.", pt:"Estou perdido(a).", ex:"I'm lost. Can you help me?", exPt:"Estou perdido. Pode me ajudar?"},
+      {en:"Is it within walking distance?", pt:"Dá para ir a pé?", ex:"Is it within walking distance?", exPt:"Dá para ir a pé?"},
+      {en:"Stop here, please.", pt:"Pare aqui, por favor.", ex:"Stop here, please. Thanks!", exPt:"Pare aqui, por favor. Obrigado!"}
+    ]
+  },
+  {
+    id: "work", name: "Trabalho", icon: "💼",
+    phrases: [
+      {en:"Let's get started.", pt:"Vamos começar.", ex:"Everyone is here. Let's get started.", exPt:"Todos estão aqui. Vamos começar."},
+      {en:"Can we schedule a meeting?", pt:"Podemos marcar uma reunião?", ex:"Can we schedule a meeting for tomorrow?", exPt:"Podemos marcar uma reunião para amanhã?"},
+      {en:"I'll send you an email.", pt:"Vou te enviar um e-mail.", ex:"I'll send you an email with the details.", exPt:"Vou te enviar um e-mail com os detalhes."},
+      {en:"Could you repeat that?", pt:"Poderia repetir isso?", ex:"Sorry, could you repeat that, please?", exPt:"Desculpe, poderia repetir isso, por favor?"},
+      {en:"I'm working on it.", pt:"Estou trabalhando nisso.", ex:"Don't worry, I'm working on it.", exPt:"Não se preocupe, estou trabalhando nisso."},
+      {en:"I'll get back to you.", pt:"Eu te retorno.", ex:"Let me check and I'll get back to you.", exPt:"Deixe-me verificar e eu te retorno."},
+      {en:"Sorry, I'm running late.", pt:"Desculpe, estou atrasado(a).", ex:"Sorry, I'm running late. Traffic is bad.", exPt:"Desculpe, estou atrasado. O trânsito está ruim."},
+      {en:"The deadline is tomorrow.", pt:"O prazo é amanhã.", ex:"Don't forget, the deadline is tomorrow.", exPt:"Não esqueça, o prazo é amanhã."},
+      {en:"Let's touch base later.", pt:"Vamos nos falar depois.", ex:"I'm busy now. Let's touch base later.", exPt:"Estou ocupado agora. Vamos nos falar depois."},
+      {en:"I totally agree.", pt:"Concordo totalmente.", ex:"I totally agree with your proposal.", exPt:"Concordo totalmente com sua proposta."}
+    ]
+  },
+  {
+    id: "emergency", name: "Emergência", icon: "🚨",
+    phrases: [
+      {en:"Help!", pt:"Socorro!", ex:"Help! Somebody call an ambulance!", exPt:"Socorro! Alguém chame uma ambulância!"},
+      {en:"Call the police.", pt:"Chame a polícia.", ex:"Quick! Call the police!", exPt:"Rápido! Chame a polícia!"},
+      {en:"I need a doctor.", pt:"Preciso de um médico.", ex:"I need a doctor. It's urgent.", exPt:"Preciso de um médico. É urgente."},
+      {en:"I don't feel well.", pt:"Não estou me sentindo bem.", ex:"I don't feel well. Can I sit down?", exPt:"Não estou me sentindo bem. Posso me sentar?"},
+      {en:"Where's the hospital?", pt:"Onde é o hospital?", ex:"Excuse me, where's the nearest hospital?", exPt:"Com licença, onde é o hospital mais próximo?"},
+      {en:"I have a headache.", pt:"Estou com dor de cabeça.", ex:"I have a headache. Do you have aspirin?", exPt:"Estou com dor de cabeça. Você tem aspirina?"},
+      {en:"It's an emergency.", pt:"É uma emergência.", ex:"Please, it's an emergency!", exPt:"Por favor, é uma emergência!"},
+      {en:"I lost my passport.", pt:"Perdi meu passaporte.", ex:"I lost my passport. What should I do?", exPt:"Perdi meu passaporte. O que devo fazer?"},
+      {en:"Is there a pharmacy nearby?", pt:"Tem uma farmácia aqui perto?", ex:"Is there a pharmacy nearby? It's urgent.", exPt:"Tem uma farmácia aqui perto? É urgente."},
+      {en:"I'm allergic to...", pt:"Sou alérgico(a) a...", ex:"I'm allergic to penicillin.", exPt:"Sou alérgico a penicilina."}
+    ]
+  },
+  {
+    id: "phone", name: "Telefone", icon: "📱",
+    phrases: [
+      {en:"Hello, this is Maria.", pt:"Olá, aqui é a Maria.", ex:"Hello, this is Maria. Is John there?", exPt:"Olá, aqui é a Maria. O John está?"},
+      {en:"Can I speak to...?", pt:"Posso falar com...?", ex:"Can I speak to Mr. Smith, please?", exPt:"Posso falar com o Sr. Smith, por favor?"},
+      {en:"Hold on, please.", pt:"Aguarde, por favor.", ex:"Hold on, please. I'll check.", exPt:"Aguarde, por favor. Vou verificar."},
+      {en:"I'll call you back.", pt:"Vou te ligar de volta.", ex:"I'm in a meeting. I'll call you back.", exPt:"Estou em uma reunião. Vou te ligar de volta."},
+      {en:"You have the wrong number.", pt:"Você ligou para o número errado.", ex:"Sorry, you have the wrong number.", exPt:"Desculpe, você ligou para o número errado."},
+      {en:"Can you hear me?", pt:"Você consegue me ouvir?", ex:"Hello? Can you hear me now?", exPt:"Alô? Você consegue me ouvir agora?"},
+      {en:"Send me a message.", pt:"Me mande uma mensagem.", ex:"I can't talk now. Send me a message.", exPt:"Não posso falar agora. Me mande uma mensagem."},
+      {en:"I'll text you later.", pt:"Te mando mensagem depois.", ex:"I'll text you later with the address.", exPt:"Te mando mensagem depois com o endereço."},
+      {en:"Sorry, I missed your call.", pt:"Desculpe, perdi sua ligação.", ex:"Sorry, I missed your call. What's up?", exPt:"Desculpe, perdi sua ligação. O que houve?"},
+      {en:"The line is bad.", pt:"A linha está ruim.", ex:"Sorry, the line is bad. Can you repeat?", exPt:"Desculpe, a linha está ruim. Pode repetir?"}
+    ]
+  },
+  {
+    id: "feelings", name: "Emoções", icon: "😊",
+    phrases: [
+      {en:"I'm so happy for you!", pt:"Estou tão feliz por você!", ex:"You got the job? I'm so happy for you!", exPt:"Você conseguiu o emprego? Estou tão feliz por você!"},
+      {en:"That's awesome!", pt:"Que demais!", ex:"You won the contest? That's awesome!", exPt:"Você ganhou o concurso? Que demais!"},
+      {en:"I don't think so.", pt:"Eu não acho.", ex:"Will it rain tomorrow? I don't think so.", exPt:"Vai chover amanhã? Eu não acho."},
+      {en:"In my opinion...", pt:"Na minha opinião...", ex:"In my opinion, this is the best option.", exPt:"Na minha opinião, esta é a melhor opção."},
+      {en:"I'm not sure about that.", pt:"Não tenho certeza disso.", ex:"I'm not sure about that plan.", exPt:"Não tenho certeza sobre esse plano."},
+      {en:"It doesn't matter.", pt:"Não importa.", ex:"It doesn't matter. Let's go anyway.", exPt:"Não importa. Vamos de qualquer jeito."},
+      {en:"Never mind.", pt:"Deixa pra lá.", ex:"Never mind, it's not important.", exPt:"Deixa pra lá, não é importante."},
+      {en:"I can't wait!", pt:"Não vejo a hora!", ex:"The trip is next week! I can't wait!", exPt:"A viagem é semana que vem! Não vejo a hora!"},
+      {en:"I'm so tired.", pt:"Estou tão cansado(a).", ex:"I worked all day. I'm so tired.", exPt:"Trabalhei o dia todo. Estou tão cansado."},
+      {en:"That's a shame.", pt:"Que pena.", ex:"You can't come? That's a shame.", exPt:"Você não pode vir? Que pena."}
+    ]
+  }
+];
+
+/* Todos os phrases com ID único */
+const allPhrases = [];
+categories.forEach(cat=>{
+  cat.phrases.forEach((p,i)=>{
+    allPhrases.push({
+      ...p,
+      id: cat.id + "_" + i,
+      catId: cat.id,
+      catName: cat.name,
+      catIcon: cat.icon
+    });
+  });
+});
+
+/* =========================================================
+   DIÁLOGOS
+   ========================================================= */
+const dialogues = [
+  {
+    id: "coffee", title: "No Café", subtitle: "At the coffee shop", icon: "☕",
+    lines: [
+      {s:"A", who:"Atendente", en:"Hi! What can I get for you?", pt:"Oi! O que posso te trazer?"},
+      {s:"B", who:"Cliente", en:"Hi! I'd like a coffee, please.", pt:"Oi! Eu queria um café, por favor."},
+      {s:"A", who:"Atendente", en:"Sure. Small, medium, or large?", pt:"Claro. Pequeno, médio ou grande?"},
+      {s:"B", who:"Cliente", en:"Medium, please. How much is it?", pt:"Médio, por favor. Quanto custa?"},
+      {s:"A", who:"Atendente", en:"It's three dollars.", pt:"São três dólares."},
+      {s:"B", who:"Cliente", en:"Here you go. Thank you!", pt:"Aqui está. Obrigado!"}
+    ]
+  },
+  {
+    id: "meeting", title: "Conhecendo Alguém", subtitle: "Meeting someone new", icon: "🤝",
+    lines: [
+      {s:"A", who:"Sarah", en:"Hi! I'm Sarah. Nice to meet you.", pt:"Oi! Eu sou a Sarah. Prazer em conhecer você."},
+      {s:"B", who:"Lucas", en:"Hi Sarah! I'm Lucas. Nice to meet you too.", pt:"Oi Sarah! Eu sou o Lucas. Prazer em conhecer você também."},
+      {s:"A", who:"Sarah", en:"Where are you from, Lucas?", pt:"De onde você é, Lucas?"},
+      {s:"B", who:"Lucas", en:"I'm from Brazil. And you?", pt:"Sou do Brasil. E você?"},
+      {s:"A", who:"Sarah", en:"I'm from Canada. How long have you been here?", pt:"Sou do Canadá. Há quanto tempo você está aqui?"},
+      {s:"B", who:"Lucas", en:"About two years. I love it here.", pt:"Cerca de dois anos. Eu amo aqui."}
+    ]
+  },
+  {
+    id: "directions", title: "Pedindo Direções", subtitle: "Asking for directions", icon: "🗺️",
+    lines: [
+      {s:"A", who:"Turista", en:"Excuse me, how do I get to the museum?", pt:"Com licença, como chego ao museu?"},
+      {s:"B", who:"Local", en:"Sure. Go straight for two blocks, then turn left.", pt:"Claro. Siga reto por dois quarteirões, depois vire à esquerda."},
+      {s:"A", who:"Turista", en:"Straight, then left. Got it. Is it far?", pt:"Reto, depois esquerda. Entendi. É longe?"},
+      {s:"B", who:"Local", en:"No, about five minutes walking.", pt:"Não, cerca de cinco minutos a pé."},
+      {s:"A", who:"Turista", en:"Thank you so much!", pt:"Muito obrigado!"},
+      {s:"B", who:"Local", en:"You're welcome! Have a nice day.", pt:"De nada! Tenha um bom dia."}
+    ]
+  },
+  {
+    id: "hotel", title: "No Hotel", subtitle: "At the hotel", icon: "🏨",
+    lines: [
+      {s:"A", who:"Recepcionista", en:"Good evening. How can I help you?", pt:"Boa noite. Como posso ajudar?"},
+      {s:"B", who:"Hóspede", en:"Hi. I have a reservation under Silva.", pt:"Oi. Tenho uma reserva no nome Silva."},
+      {s:"A", who:"Recepcionista", en:"Let me check. Yes, one room for three nights.", pt:"Deixe-me verificar. Sim, um quarto por três noites."},
+      {s:"B", who:"Hóspede", en:"That's right. Is breakfast included?", pt:"Isso mesmo. O café da manhã está incluso?"},
+      {s:"A", who:"Recepcionista", en:"Yes, from 7 to 10 a.m. Here's your key.", pt:"Sim, das 7 às 10 da manhã. Aqui está sua chave."},
+      {s:"B", who:"Hóspede", en:"Perfect. What's the Wi-Fi password?", pt:"Perfeito. Qual é a senha do Wi-Fi?"},
+      {s:"A", who:"Recepcionista", en:"It's on the card in your room.", pt:"Está no cartão do seu quarto."}
+    ]
+  },
+  {
+    id: "interview", title: "Entrevista de Emprego", subtitle: "Job interview", icon: "💼",
+    lines: [
+      {s:"A", who:"Entrevistador", en:"Tell me about yourself.", pt:"Fale sobre você."},
+      {s:"B", who:"Candidato", en:"I'm a graphic designer with five years of experience.", pt:"Sou designer gráfico com cinco anos de experiência."},
+      {s:"A", who:"Entrevistador", en:"Why do you want to work here?", pt:"Por que você quer trabalhar aqui?"},
+      {s:"B", who:"Candidato", en:"I love your company's work. I think I can contribute a lot.", pt:"Eu amo o trabalho da sua empresa. Acho que posso contribuir muito."},
+      {s:"A", who:"Entrevistador", en:"Great. When can you start?", pt:"Ótimo. Quando você pode começar?"},
+      {s:"B", who:"Candidato", en:"I can start next Monday.", pt:"Posso começar na próxima segunda."}
+    ]
+  },
+  {
+    id: "shopping", title: "Comprando Roupa", subtitle: "Shopping for clothes", icon: "👕",
+    lines: [
+      {s:"A", who:"Vendedor", en:"Hi, can I help you?", pt:"Oi, posso ajudar?"},
+      {s:"B", who:"Cliente", en:"Yes, do you have this shirt in a medium?", pt:"Sim, você tem esta camisa em médio?"},
+      {s:"A", who:"Vendedor", en:"Let me check. Yes, here you go.", pt:"Deixe-me verificar. Sim, aqui está."},
+      {s:"B", who:"Cliente", en:"Can I try it on?", pt:"Posso experimentar?"},
+      {s:"A", who:"Vendedor", en:"Of course. The fitting room is over there.", pt:"Claro. O provador é ali."},
+      {s:"B", who:"Cliente", en:"It fits perfectly. I'll take it.", pt:"Serviu perfeitamente. Vou levar."},
+      {s:"A", who:"Vendedor", en:"Great! Cash or card?", pt:"Ótimo! Dinheiro ou cartão?"}
+    ]
+  }
+];
+
+/* =========================================================
+   QUIZ DE GRAMÁTICA
+   ========================================================= */
+const quizQuestions = [
+  {q:"Complete: She ___ to school every day.", opts:["go","goes","going","gone"], a:1},
+  {q:"Qual a forma correta de dizer sua idade?", opts:["I have 20 years.","I am 20 years old.","I has 20 years.","I have 20 year."], a:1},
+  {q:"Complete: They ___ like fish.", opts:["doesn't","don't","isn't","aren't"], a:1},
+  {q:"Como perguntar 'Você fala inglês?'", opts:["You speak English?","Do you speak English?","Does you speak English?","Are you speak English?"], a:1},
+  {q:"Complete: I ___ a movie yesterday.", opts:["watch","watched","watching","watches"], a:1},
+  {q:"Complete: He ___ his homework already.", opts:["finish","finished","has finished","is finishing"], a:2},
+  {q:"Complete: We ___ travel to London next year.", opts:["are going to","is going to","go to","went to"], a:0},
+  {q:"Comparativo de 'interesting':", opts:["interestinger","more interesting","most interesting","interesting more"], a:1},
+  {q:"Complete: If it ___, I will stay home.", opts:["rain","rains","will rain","rained"], a:1},
+  {q:"Complete: I ___ here since 2020.", opts:["live","lived","have lived","am living"], a:2},
+  {q:"Superlativo de 'good':", opts:["gooder","more good","the best","the goodest"], a:2},
+  {q:"Preposição correta: I was born ___ July.", opts:["on","at","in","for"], a:2},
+  {q:"Qual está correta?", opts:["People is nice.","People are nice.","People am nice.","People be nice."], a:1},
+  {q:"Complete: She ___ at a hospital.", opts:["work","works","working","worked now"], a:1},
+  {q:"'I didn't ___ yesterday.'", opts:["went","go","gone","going"], a:1}
+];
+
+/* =========================================================
+   SRS — Repetição Espaçada
+   ========================================================= */
+function loadSRS(){
+  try { return JSON.parse(localStorage.getItem('ef_srs') || '{}'); } catch(e){ return {}; }
+}
+function saveSRS(data){
+  localStorage.setItem('ef_srs', JSON.stringify(data));
+}
+
+function isDue(entry){
+  if(!entry) return true;
+  return entry.next <= todayStr();
+}
+
+function gradeCard(phraseId, grade){
+  const srs = loadSRS();
+  const entry = srs[phraseId] || {level: 0, next: todayStr(), seen: 0};
+  entry.seen = (entry.seen || 0) + 1;
+
+  if(grade === 0){ // Não sei
+    entry.level = 0;
+    entry.next = todayStr(); // revisar hoje mesmo
+  } else if(grade === 1){ // Difícil
+    entry.level = Math.max(0, entry.level - 1);
+    entry.next = daysFromNow(1);
+  } else if(grade === 2){ // Médio
+    entry.level = Math.min(5, entry.level + 1);
+    const days = [0, 1, 3, 7, 15, 30][entry.level] || 30;
+    entry.next = daysFromNow(days);
+  } else { // Fácil
+    entry.level = Math.min(5, entry.level + 2);
+    const days = [0, 2, 5, 10, 20, 40][entry.level] || 40;
+    entry.next = daysFromNow(days);
+  }
+  srs[phraseId] = entry;
+  saveSRS(srs);
+  touchStudyDay();
+  updateGlobalPills();
+}
+
+/* =========================================================
+   STREAK / STATS
+   ========================================================= */
+function loadStats(){
+  try { return JSON.parse(localStorage.getItem('ef_stats') || '{}'); } catch(e){ return {}; }
+}
+function saveStats(s){
+  localStorage.setItem('ef_stats', JSON.stringify(s));
+}
+
+function touchStudyDay(){
+  const s = loadStats();
+  const today = todayStr();
+  if(s.lastStudy === today) return;
+  const yesterday = new Date(Date.now()-86400000).toISOString().slice(0,10);
+  if(s.lastStudy === yesterday){
+    s.streak = (s.streak || 0) + 1;
+  } else {
+    s.streak = 1;
+  }
+  s.lastStudy = today;
+  saveStats(s);
+}
+
+function getStreak(){
+  const s = loadStats();
+  if(!s.lastStudy) return 0;
+  const today = todayStr();
+  const yesterday = new Date(Date.now()-86400000).toISOString().slice(0,10);
+  if(s.lastStudy === today || s.lastStudy === yesterday) return s.streak || 0;
+  return 0;
+}
+
+function getMasteredCount(){
+  const srs = loadSRS();
+  return Object.values(srs).filter(e=>e.level >= 4).length;
+}
+
+function getSeenCount(){
+  const srs = loadSRS();
+  return Object.values(srs).filter(e=>e.seen > 0).length;
+}
+
+function getDueCount(){
+  const srs = loadSRS();
+  return allPhrases.filter(p => {
+    const e = srs[p.id];
+    return e && e.seen > 0 && isDue(e) && e.level < 5;
+  }).length;
+}
+
+function updateGlobalPills(){
+  document.getElementById('streakNum').textContent = getStreak();
+  document.getElementById('masteredNum').textContent = getMasteredCount();
+  // Home stats
+  const ids = ['homeStudied','homeMastered','homeDue'];
+  if(document.getElementById('homeStudied')){
+    document.getElementById('homeStudied').textContent = getSeenCount();
+    document.getElementById('homeMastered').textContent = getMasteredCount();
+    document.getElementById('homeDue').textContent = getDueCount();
+  }
+  // Stats page
+  if(document.getElementById('stStreak')){
+    document.getElementById('stStreak').textContent = getStreak();
+    document.getElementById('stSeen').textContent = getSeenCount();
+    document.getElementById('stMastered').textContent = getMasteredCount();
+    document.getElementById('stDue').textContent = getDueCount();
+    renderStatsByCat();
+  }
+  renderCatGrid();
+}
+
+/* =========================================================
+   NAVEGAÇÃO
+   ========================================================= */
+const navButtons = document.querySelectorAll('nav button');
+navButtons.forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    navButtons.forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+    document.getElementById(btn.dataset.page).classList.add('active');
+    window.scrollTo({top:0,behavior:'smooth'});
+    if(btn.dataset.page === 'home') setPhraseOfDay();
+    if(btn.dataset.page === 'stats') updateGlobalPills();
+    if(btn.dataset.page === 'learn') { backToPicker(); renderCatGrid(); }
+  });
+});
+
+/* =========================================================
+   HOME — Frase do dia
+   ========================================================= */
+function setPhraseOfDay(){
+  const idx = new Date().getDate() % allPhrases.length;
+  const p = allPhrases[idx];
+  document.getElementById('pdEn').textContent = p.en;
+  document.getElementById('pdPt').textContent = p.pt;
+  document.getElementById('pdEx').innerHTML =
+    '<span class="en-text">' + p.ex + '</span><span class="pt-text">' + p.exPt + '</span>';
+}
+
+/* =========================================================
+   CATEGORY GRID
+   ========================================================= */
+function renderCatGrid(){
+  const grid = document.getElementById('catGrid');
+  if(!grid) return;
+  const srs = loadSRS();
+  grid.innerHTML = '';
+  categories.forEach(cat=>{
+    const catPhrases = allPhrases.filter(p=>p.catId===cat.id);
+    const mastered = catPhrases.filter(p => srs[p.id] && srs[p.id].level >= 4).length;
+    const pct = Math.round((mastered / catPhrases.length) * 100);
+    const btn = document.createElement('button');
+    btn.className = 'cat-btn';
+    btn.onclick = ()=> startCategory(cat.id);
+    btn.innerHTML = `
+      <span class="cat-icon">${cat.icon}</span>
+      <div class="cat-name">${cat.name}</div>
+      <div class="cat-progress">${mastered}/${catPhrases.length} dominadas</div>
+      <div class="mini-bar"><div style="width:${pct}%"></div></div>
+    `;
+    grid.appendChild(btn);
+  });
+}
+
+/* =========================================================
+   LEARN — Flashcards com SRS
+   ========================================================= */
+let deck = [];
+let deckIdx = 0;
+let deckLabel = '';
+let cardRevealed = false;
+
+function startCategory(catId){
+  const cat = categories.find(c=>c.id===catId);
+  if(!cat) return;
+  // Ordena: primeiro as que precisam revisão, depois as novas
+  const srs = loadSRS();
+  const phrases = allPhrases.filter(p=>p.catId===catId);
+  deck = phrases.slice().sort((a,b)=>{
+    const ea = srs[a.id], eb = srs[b.id];
+    const dueA = ea && isDue(ea) && ea.level < 5 ? 0 : (ea ? 2 : 1);
+    const dueB = eb && isDue(eb) && eb.level < 5 ? 0 : (eb ? 2 : 1);
+    return dueA - dueB;
+  });
+  deckIdx = 0;
+  deckLabel = cat.icon + ' ' + cat.name;
+  showLearnView();
+}
+
+function startReview(){
+  const srs = loadSRS();
+  deck = allPhrases.filter(p=>{
+    const e = srs[p.id];
+    return e && e.seen > 0 && isDue(e) && e.level < 5;
+  });
+  if(deck.length === 0){
+    // Nada para revisar: pega todas que já viu, mas embaralhadas
+    const seen = allPhrases.filter(p => srs[p.id] && srs[p.id].seen > 0);
+    if(seen.length === 0){
+      alert('Você ainda não estudou nenhuma frase. Escolha uma categoria primeiro!');
+      return;
+    }
+    deck = shuffle(seen).slice(0, 10);
+    deckLabel = '🔁 Revisão livre';
+  } else {
+    deckLabel = '🔁 Revisão do dia';
+  }
+  deckIdx = 0;
+  showLearnView();
+}
+
+function showLearnView(){
+  document.getElementById('learnPicker').style.display = 'none';
+  document.getElementById('learnFlash').style.display = 'block';
+  document.getElementById('learnCatName').textContent = deckLabel;
+  document.getElementById('learnTotal').textContent = deck.length;
+  renderLearnCard();
+}
+
+function backToPicker(){
+  document.getElementById('learnPicker').style.display = 'block';
+  document.getElementById('learnFlash').style.display = 'none';
+}
+
+function renderLearnCard(){
+  if(deckIdx >= deck.length){
+    document.getElementById('frontWord').textContent = '🎉 Parabéns!';
+    document.getElementById('backWord').textContent = 'Você concluiu este baralho!';
+    document.getElementById('backEx').textContent = '';
+    document.getElementById('gradeBtns').style.display = 'none';
+    return;
+  }
+  const p = deck[deckIdx];
+  document.getElementById('learnIdx').textContent = deckIdx + 1;
+  document.getElementById('frontWord').textContent = p.en;
+  document.getElementById('backWord').textContent = p.pt;
+  document.getElementById('backEx').innerHTML =
+    '<span class="en-text">' + p.ex + '</span><span class="pt-text">' + p.exPt + '</span>';
+  document.getElementById('gradeBtns').style.display = 'grid';
+  document.getElementById('flashcard').classList.remove('flipped');
+  cardRevealed = false;
+
+  // Esconde grade até virar
+  document.getElementById('gradeBtns').style.opacity = '0.35';
+  document.getElementById('gradeBtns').style.pointerEvents = 'none';
+}
+
+function flipCard(){
+  if(deckIdx >= deck.length) return;
+  document.getElementById('flashcard').classList.toggle('flipped');
+  if(!cardRevealed){
+    cardRevealed = true;
+    document.getElementById('gradeBtns').style.opacity = '1';
+    document.getElementById('gradeBtns').style.pointerEvents = 'auto';
+  }
+}
+
+function speakCurrent(){
+  if(deckIdx < deck.length) speak(deck[deckIdx].en);
+}
+
+function grade(g){
+  if(deckIdx >= deck.length) return;
+  const p = deck[deckIdx];
+  gradeCard(p.id, g);
+  deckIdx++;
+  if(g === 0){
+    // "Não sei": reencaixa no fim deste baralho para reforço imediato
+    deck.push(p);
+    document.getElementById('learnTotal').textContent = deck.length;
+  }
+  renderLearnCard();
+}
+
+function skipCard(){
+  deckIdx++;
+  if(deckIdx >= deck.length){
+    backToPicker();
+    return;
+  }
+  renderLearnCard();
+}
+
+/* =========================================================
+   DIÁLOGOS
+   ========================================================= */
+function renderDialogueList(){
+  const wrap = document.getElementById('dialogueCards');
+  wrap.innerHTML = '';
+  dialogues.forEach((d, i)=>{
+    const card = document.createElement('div');
+    card.className = 'dialogue-card';
+    card.onclick = ()=> openDialogue(i);
+    card.innerHTML = `
+      <div class="dlg-title">${d.icon} ${d.title}</div>
+      <div class="dlg-sub">${d.subtitle} • ${d.lines.length} falas</div>
+    `;
+    wrap.appendChild(card);
+  });
+}
+
+let currentDialogue = null;
+
+function openDialogue(idx){
+  currentDialogue = dialogues[idx];
+  document.getElementById('dlgList').style.display = 'none';
+  document.getElementById('dlgView').classList.add('active');
+  document.getElementById('dlgTitle').textContent = currentDialogue.icon + ' ' + currentDialogue.title;
+
+  const linesBox = document.getElementById('dlgLines');
+  linesBox.innerHTML = '';
+  currentDialogue.lines.forEach((l, i)=>{
+    const div = document.createElement('div');
+    div.className = 'dlg-line';
+    div.onclick = ()=> speak(l.en);
+    div.innerHTML = `
+      <div class="speaker ${l.s==='B'?'b':''}">${l.who}</div>
+      <div class="en">${l.en} 🔊</div>
+      <div class="pt">${l.pt}</div>
+    `;
+    linesBox.appendChild(div);
+  });
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+
+function closeDialogue(){
+  document.getElementById('dlgView').classList.remove('active');
+  document.getElementById('dlgList').style.display = 'block';
+  currentDialogue = null;
+}
+
+function playAllDialogue(){
+  if(!currentDialogue) return;
+  window.speechSynthesis.cancel();
+  currentDialogue.lines.forEach((l, i)=>{
+    setTimeout(()=>speak(l.en), i * 3500);
+  });
+}
+
+/* =========================================================
+   PRACTICE — Modo Escuta
+   ========================================================= */
+let listenQueue = [];
+let listenIdx = 0;
+let listenScore = 0;
+let listenAnswered = false;
+
+function startListen(){
+  document.querySelector('#practice .card').style.display = 'none';
+  document.getElementById('listenView').style.display = 'block';
+  document.getElementById('quizView').style.display = 'none';
+  listenQueue = shuffle(allPhrases).slice(0, 10);
+  listenIdx = 0;
+  listenScore = 0;
+  document.getElementById('lTotal').textContent = listenQueue.length;
+  renderListenQuestion();
+}
+
+function closeListen(){
+  document.getElementById('listenView').style.display = 'none';
+  document.querySelector('#practice .card').style.display = 'block';
+}
+
+function renderListenQuestion(){
+  listenAnswered = false;
+  const q = listenQueue[listenIdx];
+  document.getElementById('lNum').textContent = listenIdx + 1;
+  document.getElementById('lScore').textContent = listenScore;
+
+  // 4 opções: a correta + 3 distratores
+  const distractors = shuffle(allPhrases.filter(p=>p.id !== q.id)).slice(0, 3);
+  const opts = shuffle([q, ...distractors]);
+
+  const box = document.getElementById('lOpts');
+  box.innerHTML = '';
+  const fb = document.getElementById('lFb');
+  fb.className = 'quiz-feedback';
+  fb.textContent = '';
+  document.getElementById('lNext').disabled = true;
+
+  opts.forEach(opt=>{
+    const b = document.createElement('button');
+    b.className = 'quiz-opt';
+    b.textContent = opt.pt;
+    b.dataset.correct = opt.id === q.id ? '1' : '0';
+    b.onclick = ()=> selectListen(b, q);
+    box.appendChild(b);
+  });
+
+  // Auto-toca
+  setTimeout(()=>speak(q.en), 300);
+}
+
+function speakListenPrompt(){
+  if(listenQueue[listenIdx]) speak(listenQueue[listenIdx].en);
+}
+
+function selectListen(btn, q){
+  if(listenAnswered) return;
+  listenAnswered = true;
+  const all = document.querySelectorAll('#lOpts .quiz-opt');
+  all.forEach(b=>b.disabled = true);
+  const fb = document.getElementById('lFb');
+  if(btn.dataset.correct === '1'){
+    btn.classList.add('correct');
+    listenScore++;
+    fb.className = 'quiz-feedback show ok';
+    fb.textContent = '✅ Correto! Frase: "' + q.en + '"';
+  } else {
+    btn.classList.add('wrong');
+    all.forEach(b=>{ if(b.dataset.correct === '1') b.classList.add('correct'); });
+    fb.className = 'quiz-feedback show err';
+    fb.textContent = '❌ A correta era: "' + q.en + '" → ' + q.pt;
+  }
+  document.getElementById('lScore').textContent = listenScore;
+  document.getElementById('lNext').disabled = false;
+  if(listenIdx === listenQueue.length - 1){
+    document.getElementById('lNext').textContent = 'Ver resultado →';
+  }
+  touchStudyDay();
+  updateGlobalPills();
+}
+
+function nextListen(){
+  if(listenIdx < listenQueue.length - 1){
+    listenIdx++;
+    renderListenQuestion();
+  } else {
+    alert('🎉 Fim do modo escuta!\n\nAcertos: ' + listenScore + '/' + listenQueue.length +
+      '\n\n' + (listenScore >= 8 ? 'Excelente!' : 'Continue praticando!'));
+    closeListen();
+  }
+}
+
+/* =========================================================
+   PRACTICE — Quiz de gramática
+   ========================================================= */
+let qIdx = 0, qScore = 0, answered = false;
+
+function startQuiz(){
+  document.querySelector('#practice .card').style.display = 'none';
+  document.getElementById('quizView').style.display = 'block';
+  document.getElementById('listenView').style.display = 'none';
+  document.getElementById('quizCard').style.display = 'block';
+  document.getElementById('quizResult').style.display = 'none';
+  qIdx = 0; qScore = 0;
+  document.getElementById('qTotal').textContent = quizQuestions.length;
+  renderQuizQuestion();
+}
+
+function closeQuiz(){
+  document.getElementById('quizView').style.display = 'none';
+  document.querySelector('#practice .card').style.display = 'block';
+}
+
+function renderQuizQuestion(){
+  answered = false;
+  const q = quizQuestions[qIdx];
+  document.getElementById('qText').textContent = q.q;
+  document.getElementById('qNum').textContent = qIdx + 1;
+  document.getElementById('qScore').textContent = qScore;
+  const box = document.getElementById('qOpts');
+  box.innerHTML = '';
+  const fb = document.getElementById('qFeedback');
+  fb.className = 'quiz-feedback';
+  fb.textContent = '';
+  document.getElementById('qNext').disabled = true;
+  document.getElementById('qNext').textContent = 'Próxima →';
+
+  q.opts.forEach((opt, i)=>{
+    const b = document.createElement('button');
+    b.className = 'quiz-opt';
+    b.textContent = opt;
+    b.onclick = ()=> selectQuizAnswer(i, b);
+    box.appendChild(b);
+  });
+}
+
+function selectQuizAnswer(i, btn){
+  if(answered) return;
+  answered = true;
+  const q = quizQuestions[qIdx];
+  const all = document.querySelectorAll('#qOpts .quiz-opt');
+  all.forEach(b=>b.disabled = true);
+  const fb = document.getElementById('qFeedback');
+  if(i === q.a){
+    btn.classList.add('correct');
+    qScore++;
+    fb.className = 'quiz-feedback show ok';
+    fb.textContent = '✅ Correto!';
+  } else {
+    btn.classList.add('wrong');
+    all[q.a].classList.add('correct');
+    fb.className = 'quiz-feedback show err';
+    fb.textContent = '❌ Correta: ' + q.opts[q.a];
+  }
+  document.getElementById('qScore').textContent = qScore;
+  document.getElementById('qNext').disabled = false;
+  if(qIdx === quizQuestions.length - 1){
+    document.getElementById('qNext').textContent = 'Ver resultado →';
+  }
+  touchStudyDay();
+}
+
+function nextQuizQuestion(){
+  if(qIdx < quizQuestions.length - 1){
+    qIdx++;
+    renderQuizQuestion();
+  } else {
+    showQuizResult();
+  }
+}
+
+function showQuizResult(){
+  document.getElementById('quizCard').style.display = 'none';
+  document.getElementById('quizResult').style.display = 'block';
+  document.getElementById('finalScore').textContent = qScore + '/' + quizQuestions.length;
+  const pct = Math.round((qScore / quizQuestions.length) * 100);
+  let msg = '';
+  if(pct >= 90) msg = '🏆 Excelente! Você domina o básico!';
+  else if(pct >= 70) msg = '👏 Muito bom! Revise os erros e avance.';
+  else if(pct >= 50) msg = '💪 Bom começo! Revise a gramática e tente de novo.';
+  else msg = '📚 Estude mais um pouco e tente novamente. Você consegue!';
+  document.getElementById('finalMsg').textContent = msg;
+  updateGlobalPills();
+}
+
+function restartQuiz(){
+  document.getElementById('quizCard').style.display = 'block';
+  document.getElementById('quizResult').style.display = 'none';
+  qIdx = 0; qScore = 0;
+  renderQuizQuestion();
+}
+
+/* =========================================================
+   STATS
+   ========================================================= */
+function renderStatsByCat(){
+  const wrap = document.getElementById('statsByCat');
+  if(!wrap) return;
+  const srs = loadSRS();
+  wrap.innerHTML = '';
+  categories.forEach(cat=>{
+    const phrases = allPhrases.filter(p=>p.catId===cat.id);
+    const mastered = phrases.filter(p=>srs[p.id] && srs[p.id].level >= 4).length;
+    const seen = phrases.filter(p=>srs[p.id] && srs[p.id].seen > 0).length;
+    const pct = Math.round((mastered / phrases.length) * 100);
+    const row = document.createElement('div');
+    row.style.cssText = 'margin-bottom:12px;';
+    row.innerHTML = `
+      <div style="display:flex;justify-content:space-between;font-size:.82rem;margin-bottom:4px;">
+        <span>${cat.icon} ${cat.name}</span>
+        <span style="color:var(--muted);">${mastered}/${phrases.length} • vistas: ${seen}</span>
+      </div>
+      <div class="progress-bar" style="height:6px;"><div style="width:${pct}%"></div></div>
+    `;
+    wrap.appendChild(row);
+  });
+}
+
+function resetAll(){
+  if(!confirm('Apagar todo o progresso? Esta ação não pode ser desfeita.')) return;
+  localStorage.removeItem('ef_srs');
+  localStorage.removeItem('ef_stats');
+  updateGlobalPills();
+  alert('Progresso apagado!');
+}
+
+/* =========================================================
+   INIT
+   ========================================================= */
+setPhraseOfDay();
+renderCatGrid();
+renderDialogueList();
+updateGlobalPills();
+</script>
+</body>
+</html>
