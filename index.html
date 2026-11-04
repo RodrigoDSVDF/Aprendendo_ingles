@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>English Fast — Frases do Cotidiano</title>
+<title>English Fast — Aprenda Inglês do Zero</title>
 <style>
   :root{
     --bg:#0f172a;--bg2:#1e293b;--card:#1e293b;--card2:#334155;
@@ -155,6 +155,122 @@
 
   .back-btn{background:transparent;border:none;color:var(--primary);cursor:pointer;font-size:.9rem;font-weight:600;padding:0;margin-bottom:12px;display:flex;align-items:center;gap:6px;}
   .back-btn:hover{text-decoration:underline;}
+
+  /* ============ READING MODE ============ */
+  .text-list-card{
+    background:var(--card);border:1px solid #334155;border-radius:var(--radius);
+    padding:16px;margin-bottom:12px;cursor:pointer;transition:.2s;
+    display:flex;align-items:center;gap:14px;
+  }
+  .text-list-card:hover{border-color:var(--primary);transform:translateY(-2px);}
+  .text-list-card .tlc-icon{font-size:2rem;flex-shrink:0;}
+  .text-list-card .tlc-body{flex:1;}
+  .text-list-card .tlc-title{font-size:1rem;font-weight:700;color:var(--text);margin-bottom:3px;}
+  .text-list-card .tlc-sub{font-size:.8rem;color:var(--muted);}
+  .text-list-card .tlc-meta{display:flex;gap:6px;margin-top:6px;align-items:center;flex-wrap:wrap;}
+  .level-badge{font-size:.68rem;padding:2px 8px;border-radius:10px;font-weight:700;text-transform:uppercase;letter-spacing:.4px;}
+  .text-list-card .tlc-check{font-size:1.4rem;color:var(--success);flex-shrink:0;}
+
+  .reader-controls{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px;}
+  .reader-toggle{
+    padding:7px 14px;border-radius:20px;border:1px solid #334155;
+    background:var(--card);color:var(--muted);font-size:.78rem;cursor:pointer;
+    display:flex;align-items:center;gap:6px;transition:.2s;
+  }
+  .reader-toggle:hover{border-color:var(--primary);color:var(--text);}
+  .reader-toggle.active{background:var(--primary);color:#0f172a;border-color:var(--primary);font-weight:700;}
+
+  .reader-legend{
+    display:flex;flex-wrap:wrap;gap:14px;padding:12px 14px;
+    background:rgba(56,189,248,.05);border:1px solid #334155;
+    border-radius:10px;margin-bottom:16px;font-size:.75rem;
+  }
+  .legend-item{display:flex;align-items:center;gap:6px;color:var(--muted);}
+  .legend-dot{width:12px;height:12px;border-radius:3px;flex-shrink:0;}
+
+  .reading-text{
+    background:var(--card);border:1px solid #334155;border-radius:var(--radius);
+    padding:22px;margin-bottom:16px;line-height:1.9;
+  }
+  .reading-text .rt-title{
+    font-size:1.2rem;font-weight:700;color:var(--primary);margin-bottom:4px;
+  }
+  .reading-text .rt-sub{
+    font-size:.85rem;color:var(--muted);margin-bottom:16px;padding-bottom:14px;
+    border-bottom:1px solid #334155;
+  }
+
+  .sentence-block{
+    display:block;margin-bottom:14px;padding:4px 0;
+    border-left:2px solid transparent;padding-left:8px;
+    transition:.2s;
+  }
+  .sentence-block:hover{border-left-color:rgba(56,189,248,.4);}
+
+  .sentence-text{font-size:1rem;line-height:1.7;color:var(--text);}
+  .chunk{
+    padding:2px 4px;border-radius:4px;transition:.15s;
+  }
+  .chunk.has-note{cursor:pointer;}
+  .chunk.has-note:hover{filter:brightness(1.25);}
+
+  .chunk.core{background:rgba(34,197,94,.15);color:#86efac;}
+  .chunk.mod{background:rgba(56,189,248,.10);color:#7dd3fc;}
+  .chunk.conn{background:rgba(245,158,11,.18);color:#fcd34d;font-weight:700;}
+  .chunk.ref{background:rgba(167,139,250,.18);color:#c4b5fd;font-weight:700;}
+
+  /* Esconde cores quando toggle está off */
+  .reading-text.chunks-off .chunk{background:none;color:inherit;font-weight:inherit;padding:0;}
+
+  .sentence-audio{
+    background:none;border:none;color:var(--primary);cursor:pointer;
+    font-size:.85rem;margin-left:6px;opacity:.7;transition:.2s;
+    vertical-align:middle;
+  }
+  .sentence-audio:hover{opacity:1;transform:scale(1.15);}
+
+  .sentence-translation{
+    display:none;font-size:.82rem;color:var(--muted);
+    font-style:italic;margin-top:4px;padding-left:2px;
+  }
+  .reading-text.translations-on .sentence-translation{display:block;}
+
+  .sentence-note{
+    display:none;font-size:.8rem;color:var(--warning);
+    background:rgba(245,158,11,.1);
+    border-left:3px solid var(--warning);
+    padding:8px 12px;border-radius:6px;margin-top:6px;
+  }
+  .sentence-note.show{display:block;}
+
+  /* Perguntas de compreensão */
+  .reading-questions{background:var(--card);border:1px solid #334155;border-radius:var(--radius);padding:20px;margin-bottom:16px;}
+  .reading-questions h3{font-size:1rem;color:var(--primary);margin-bottom:14px;}
+  .rq-box{margin-bottom:18px;}
+  .rq-box:last-child{margin-bottom:0;}
+  .rq-num{font-size:.72rem;color:var(--primary);font-weight:700;margin-bottom:6px;text-transform:uppercase;letter-spacing:.4px;}
+  .rq-text{font-size:.92rem;margin-bottom:10px;color:var(--text);line-height:1.5;}
+  .rq-opts{display:flex;flex-direction:column;gap:8px;}
+  .rq-opt{
+    background:var(--bg);border:1px solid #334155;color:var(--text);
+    padding:10px 14px;border-radius:8px;cursor:pointer;text-align:left;
+    font-size:.87rem;transition:.2s;
+  }
+  .rq-opt:hover{border-color:var(--primary);}
+  .rq-opt.correct{background:rgba(34,197,94,.15);border-color:var(--success);color:#86efac;}
+  .rq-opt.wrong{background:rgba(239,68,68,.15);border-color:var(--danger);color:#fca5a5;}
+  .rq-opt:disabled{cursor:not-allowed;}
+  .rq-feedback{margin-top:8px;font-size:.82rem;display:none;}
+  .rq-feedback.show{display:block;}
+  .rq-feedback.ok{color:#86efac;}
+  .rq-feedback.err{color:#fca5a5;}
+
+  .read-complete-box{
+    text-align:center;padding:20px;background:linear-gradient(135deg,rgba(34,197,94,.1),rgba(56,189,248,.1));
+    border:1px solid var(--success);border-radius:var(--radius);margin-bottom:16px;
+  }
+  .read-complete-box h3{color:var(--success);font-size:1.05rem;margin-bottom:8px;}
+  .read-complete-box p{font-size:.85rem;color:var(--muted);}
 </style>
 </head>
 <body>
@@ -170,6 +286,7 @@
 <nav>
   <button class="active" data-page="home">🏠 Início</button>
   <button data-page="learn">🎯 Aprender</button>
+  <button data-page="reading">📖 Leitura</button>
   <button data-page="dialogues">💬 Diálogos</button>
   <button data-page="practice">🎧 Praticar</button>
   <button data-page="plan">📅 Plano</button>
@@ -205,6 +322,7 @@
       <li><strong>Repetição espaçada:</strong> frases voltam no momento certo de revisar.</li>
       <li><strong>Recordação ativa:</strong> você tenta lembrar antes de ver a resposta.</li>
       <li><strong>Contexto real:</strong> diálogos e exemplos do dia a dia.</li>
+      <li><strong>Modo Leitura:</strong> textos graduados com chunking visual.</li>
       <li><strong>Dupla codificação:</strong> texto + áudio juntos.</li>
       <li><strong>Hábito:</strong> estude 15 min por dia — streak conta os dias seguidos.</li>
     </ul>
@@ -214,14 +332,13 @@
     <h2>🚀 Comece por aqui</h2>
     <p>1️⃣ Vá em <strong>Aprender</strong> e escolha uma categoria.<br>
        2️⃣ Avalie cada frase (Não sei / Difícil / Médio / Fácil).<br>
-       3️⃣ Use <strong>Praticar</strong> para testar escuta e leitura.<br>
-       4️⃣ Explore <strong>Diálogos</strong> para ver tudo em contexto.</p>
+       3️⃣ Use <strong>Leitura</strong> para treinar compreensão em contexto.<br>
+       4️⃣ Explore <strong>Diálogos</strong> e <strong>Praticar</strong>.</p>
   </div>
 </section>
 
 <!-- ============ LEARN ============ -->
 <section class="page" id="learn">
-  <!-- Category picker -->
   <div id="learnPicker">
     <div class="card">
       <h2>🎯 Escolha uma categoria</h2>
@@ -231,7 +348,6 @@
     </div>
   </div>
 
-  <!-- Flashcard view -->
   <div id="learnFlash" style="display:none;">
     <button class="back-btn" onclick="backToPicker()">← Voltar às categorias</button>
     <div class="card flash-container">
@@ -269,6 +385,51 @@
   </div>
 </section>
 
+<!-- ============ READING ============ -->
+<section class="page" id="reading">
+  <!-- Lista de textos -->
+  <div id="readingList">
+    <div class="card">
+      <h2>📖 Modo Leitura</h2>
+      <p style="margin-bottom:6px;">Textos graduados do iniciante ao intermediário, com:</p>
+      <ul style="margin-bottom:14px;">
+        <li>Chunks coloridos (esqueleto, modificadores, conectores, referências)</li>
+        <li>Tradução por frase (ativável)</li>
+        <li>Áudio em cada frase 🔊</li>
+        <li>Perguntas de compreensão ao final</li>
+      </ul>
+    </div>
+    <div id="readingTextsList"></div>
+  </div>
+
+  <!-- Texto aberto -->
+  <div id="readingView" style="display:none;">
+    <button class="back-btn" onclick="closeReading()">← Voltar aos textos</button>
+
+    <div class="reader-controls">
+      <button class="reader-toggle active" id="toggleChunks" onclick="toggleChunks()">🎨 Chunks</button>
+      <button class="reader-toggle" id="toggleTranslations" onclick="toggleTranslations()">🇧🇷 Tradução</button>
+      <button class="reader-toggle" id="toggleAutoPlay" onclick="toggleAutoPlay()">▶️ Auto-play</button>
+    </div>
+
+    <div class="reader-legend">
+      <div class="legend-item"><div class="legend-dot" style="background:rgba(34,197,94,.6);"></div> Esqueleto (SVO)</div>
+      <div class="legend-item"><div class="legend-dot" style="background:rgba(56,189,248,.5);"></div> Modificadores</div>
+      <div class="legend-item"><div class="legend-dot" style="background:rgba(245,158,11,.7);"></div> Conectores</div>
+      <div class="legend-item"><div class="legend-dot" style="background:rgba(167,139,250,.7);"></div> Referências</div>
+      <div class="legend-item" style="color:var(--warning);">💡 Clique nos blocos coloridos para ver dicas</div>
+    </div>
+
+    <div class="reading-text" id="readingText"></div>
+
+    <div class="reading-questions" id="readingQuestions">
+      <h3>🧠 Perguntas de compreensão</h3>
+      <div id="rqBox"></div>
+      <button class="btn" id="markReadBtn" onclick="markAsRead()" style="display:none;">✅ Marcar como texto lido</button>
+    </div>
+  </div>
+</section>
+
 <!-- ============ DIALOGUES ============ -->
 <section class="page" id="dialogues">
   <div id="dlgList">
@@ -299,7 +460,6 @@
     <button class="btn ghost" onclick="startQuiz()">📝 Quiz de gramática</button>
   </div>
 
-  <!-- Listen mode -->
   <div id="listenView" style="display:none;">
     <button class="back-btn" onclick="closeListen()">← Voltar</button>
     <div class="card">
@@ -314,7 +474,6 @@
     </div>
   </div>
 
-  <!-- Grammar quiz -->
   <div id="quizView" style="display:none;">
     <button class="back-btn" onclick="closeQuiz()">← Voltar</button>
     <div class="card" id="quizCard">
@@ -346,7 +505,7 @@
     <div class="day-list">
       <strong>Dia 1-2:</strong> Categoria Saudação + Small Talk<br>
       <strong>Dia 3-4:</strong> Modo escuta + frase do dia<br>
-      <strong>Dia 5-6:</strong> Diálogo "Conhecendo alguém"<br>
+      <strong>Dia 5-6:</strong> Diálogo "Conhecendo alguém" + Leitura "Daily Routine"<br>
       <strong>Dia 7:</strong> Revisão geral da semana
     </div>
     <span class="tag">Saudações</span><span class="tag">Small Talk</span><span class="tag">Listening</span>
@@ -358,10 +517,10 @@
     <div class="day-list">
       <strong>Dia 8-9:</strong> Categoria Restaurante<br>
       <strong>Dia 10-11:</strong> Categoria Compras + Diálogo "No Café"<br>
-      <strong>Dia 12-13:</strong> Categoria Telefone<br>
+      <strong>Dia 12-13:</strong> Leitura "At the Supermarket" + "The Weather"<br>
       <strong>Dia 14:</strong> Quiz + revisão
     </div>
-    <span class="tag">Restaurante</span><span class="tag">Compras</span><span class="tag">Telefone</span>
+    <span class="tag">Restaurante</span><span class="tag">Compras</span><span class="tag">Leitura</span>
   </div>
 
   <div class="week">
@@ -369,11 +528,11 @@
     <p>Frases para aeroporto, hotel e ambiente profissional.</p>
     <div class="day-list">
       <strong>Dia 15-16:</strong> Categoria Viagem + Diálogo "Hotel"<br>
-      <strong>Dia 17-18:</strong> Categoria Direções<br>
+      <strong>Dia 17-18:</strong> Leitura "Working from Home"<br>
       <strong>Dia 19-20:</strong> Categoria Trabalho + Diálogo "Entrevista"<br>
-      <strong>Dia 21:</strong> Revisão de todas as categorias
+      <strong>Dia 21:</strong> Leitura "My Trip to London"
     </div>
-    <span class="tag">Viagem</span><span class="tag">Trabalho</span><span class="tag">Direções</span>
+    <span class="tag">Viagem</span><span class="tag">Trabalho</span><span class="tag">Leitura</span>
   </div>
 
   <div class="week">
@@ -381,11 +540,11 @@
     <p>Emergências, emoções e prática intensiva de revisão.</p>
     <div class="day-list">
       <strong>Dia 22-23:</strong> Categoria Emergências + Saúde<br>
-      <strong>Dia 24-25:</strong> Categoria Emoções + Opiniões<br>
+      <strong>Dia 24-25:</strong> Leitura "Social Media" + "Future of AI"<br>
       <strong>Dia 26-28:</strong> Modo revisão + Quiz intensivo<br>
       <strong>Dia 29-30:</strong> Diálogos completos + replay geral
     </div>
-    <span class="tag">Emergências</span><span class="tag">Emoções</span><span class="tag">Revisão</span>
+    <span class="tag">Emergências</span><span class="tag">Emoções</span><span class="tag">Leitura Avançada</span>
   </div>
 
   <div class="card">
@@ -408,6 +567,10 @@
       <div class="stat-box"><div class="num" id="stSeen">0</div><div class="lbl">👀 Vistas</div></div>
       <div class="stat-box"><div class="num" id="stMastered">0</div><div class="lbl">🏆 Dominadas</div></div>
       <div class="stat-box"><div class="num" id="stDue">0</div><div class="lbl">🔁 Revisar</div></div>
+    </div>
+    <div class="stats-grid" style="margin-top:12px;">
+      <div class="stat-box"><div class="num" id="stTextsRead">0</div><div class="lbl">📖 Textos lidos</div></div>
+      <div class="stat-box"><div class="num" id="stReadingQ">0</div><div class="lbl">🧠 Acertos leitura</div></div>
     </div>
   </div>
 
@@ -701,6 +864,189 @@ const dialogues = [
 ];
 
 /* =========================================================
+   TEXTOS DE LEITURA — 8 textos graduados
+   ========================================================= */
+const readingTexts = [
+  {
+    id: "r1",
+    title: "My Daily Routine",
+    subtitle: "Minha rotina diária",
+    level: "Iniciante",
+    levelColor: "#22c55e",
+    icon: "☀️",
+    sentences: [
+      {chunks:[{t:"I wake up",type:"core"},{t:"at 7 a.m.",type:"mod"},{t:"every day.",type:"mod"}], pt:"Eu acordo às 7 da manhã todos os dias."},
+      {chunks:[{t:"I brush my teeth",type:"core"},{t:"and",type:"conn",note:"Conector de ADIÇÃO — junta duas ações."},{t:"take a shower.",type:"core"}], pt:"Eu escovo os dentes e tomo banho."},
+      {chunks:[{t:"Then",type:"conn",note:"Conector de SEQUÊNCIA — indica o que vem depois."},{t:"I have breakfast",type:"core"},{t:"with my family.",type:"mod"}], pt:"Então eu tomo café da manhã com minha família."},
+      {chunks:[{t:"I usually eat bread",type:"core"},{t:"and",type:"conn",note:"Conector de ADIÇÃO."},{t:"drink coffee.",type:"core"}], pt:"Eu geralmente como pão e bebo café."},
+      {chunks:[{t:"After breakfast,",type:"mod"},{t:"I go to work",type:"core"},{t:"by bus.",type:"mod"}], pt:"Depois do café da manhã, eu vou ao trabalho de ônibus."},
+      {chunks:[{t:"I start work",type:"core"},{t:"at 9 a.m.",type:"mod"},{t:"and",type:"conn",note:"Conector de ADIÇÃO."},{t:"finish at 6 p.m.",type:"core"}], pt:"Eu começo o trabalho às 9h e termino às 18h."},
+      {chunks:[{t:"In the evening,",type:"mod"},{t:"I go home",type:"core"},{t:"and",type:"conn",note:"Conector de ADIÇÃO."},{t:"cook dinner.",type:"core"}], pt:"À noite, eu vou para casa e preparo o jantar."},
+      {chunks:[{t:"Before bed,",type:"mod"},{t:"I read a book",type:"core"},{t:"or",type:"conn",note:"Conector de ALTERNATIVA — escolha entre opções."},{t:"watch TV.",type:"core"}], pt:"Antes de dormir, eu leio um livro ou assisto TV."}
+    ],
+    questions: [
+      {q:"What time does the person wake up?", opts:["At 6 a.m.","At 7 a.m.","At 8 a.m.","At 9 a.m."], a:1},
+      {q:"How does the person go to work?", opts:["By car","By train","By bus","Walking"], a:2},
+      {q:"What does the person do before bed?", opts:["Cook dinner","Read a book or watch TV","Take a shower","Go to work"], a:1}
+    ]
+  },
+  {
+    id: "r2",
+    title: "My Family",
+    subtitle: "Minha família",
+    level: "Iniciante",
+    levelColor: "#22c55e",
+    icon: "👨‍👩‍👧",
+    sentences: [
+      {chunks:[{t:"My family is small",type:"core"},{t:"but",type:"conn",note:"Conector de CONTRASTE — introduz uma ideia oposta."},{t:"very happy.",type:"mod"}], pt:"Minha família é pequena mas muito feliz."},
+      {chunks:[{t:"There are four people",type:"core"},{t:"in my family:",type:"mod"},{t:"my father, my mother, my sister,",type:"mod"},{t:"and",type:"conn",note:"Conector de ADIÇÃO."},{t:"me.",type:"mod"}], pt:"Há quatro pessoas na minha família: meu pai, minha mãe, minha irmã e eu."},
+      {chunks:[{t:"My father is a teacher.",type:"core"},{t:"He works",type:"core"},{t:"at a school",type:"mod"},{t:"near our house.",type:"mod"}], pt:"Meu pai é professor. Ele trabalha em uma escola perto da nossa casa."},
+      {chunks:[{t:"My mother is a nurse,",type:"core"},{t:"and",type:"conn",note:"Conector de ADIÇÃO."},{t:"she works",type:"core"},{t:"at a hospital.",type:"mod"}], pt:"Minha mãe é enfermeira, e ela trabalha em um hospital."},
+      {chunks:[{t:"My sister is younger",type:"core"},{t:"than me.",type:"mod"},{t:"She is fifteen years old",type:"core"},{t:"and",type:"conn",note:"Conector de ADIÇÃO."},{t:"loves music.",type:"core"}], pt:"Minha irmã é mais nova que eu. Ela tem quinze anos e ama música."},
+      {chunks:[{t:"We all have dinner",type:"core"},{t:"together",type:"mod"},{t:"every night.",type:"mod"}], pt:"Nós todos jantamos juntos toda noite."}
+    ],
+    questions: [
+      {q:"How many people are in the family?", opts:["Three","Four","Five","Six"], a:1},
+      {q:"What does the father do?", opts:["He is a nurse","He is a teacher","He is a doctor","He is a driver"], a:1},
+      {q:"How old is the sister?", opts:["Ten years old","Twelve years old","Fifteen years old","Twenty years old"], a:2}
+    ]
+  },
+  {
+    id: "r3",
+    title: "At the Supermarket",
+    subtitle: "No supermercado",
+    level: "Elementar",
+    levelColor: "#3b82f6",
+    icon: "🛒",
+    sentences: [
+      {chunks:[{t:"Yesterday",type:"mod"},{t:"I went to the supermarket",type:"core"},{t:"to buy some food.",type:"mod"}], pt:"Ontem eu fui ao supermercado comprar comida."},
+      {chunks:[{t:"First,",type:"conn",note:"Conector de SEQUÊNCIA."},{t:"I made a list",type:"core"},{t:"because",type:"conn",note:"Conector de CAUSA — introduz o motivo."},{t:"I always forget things.",type:"core"}], pt:"Primeiro, eu fiz uma lista porque sempre esqueço coisas."},
+      {chunks:[{t:"At the store,",type:"mod"},{t:"I bought fruit, vegetables,",type:"core"},{t:"and",type:"conn",note:"Conector de ADIÇÃO."},{t:"milk.",type:"core"}], pt:"Na loja, eu comprei frutas, legumes e leite."},
+      {chunks:[{t:"I also wanted to buy bread,",type:"core"},{t:"but",type:"conn",note:"Conector de CONTRASTE — quebra a expectativa."},{t:"there wasn't any left.",type:"core"}], pt:"Eu também queria comprar pão, mas não tinha sobrado nenhum."},
+      {chunks:[{t:"When I got home,",type:"mod"},{t:"I realized",type:"core"},{t:"I forgot the eggs.",type:"core"}], pt:"Quando cheguei em casa, percebi que esqueci os ovos."},
+      {chunks:[{t:"So",type:"conn",note:"Conector de CONSEQUÊNCIA — indica o resultado."},{t:"I went back",type:"core"},{t:"to the supermarket later.",type:"mod"}], pt:"Então eu voltei ao supermercado depois."},
+      {chunks:[{t:"This time,",type:"ref",note:"Referência a 'went back' — 'desta vez' aponta para a segunda visita ao mercado."},{t:"I remembered everything.",type:"core"}], pt:"Desta vez, eu lembrei de tudo."}
+    ],
+    questions: [
+      {q:"Why did the person make a list?", opts:["Because the store was far","Because he/she always forgets things","Because it was on sale","Because a friend asked"], a:1},
+      {q:"What wasn't available at the store?", opts:["Fruit","Vegetables","Milk","Bread"], a:3},
+      {q:"Why did the person go back to the supermarket?", opts:["To buy more fruit","Because he/she forgot the eggs","Because the store called","To pay again"], a:1}
+    ]
+  },
+  {
+    id: "r4",
+    title: "The Weather Today",
+    subtitle: "O tempo hoje",
+    level: "Elementar",
+    levelColor: "#3b82f6",
+    icon: "🌦️",
+    sentences: [
+      {chunks:[{t:"Today",type:"mod"},{t:"the weather is beautiful.",type:"core"}], pt:"Hoje o tempo está bonito."},
+      {chunks:[{t:"The sun is shining,",type:"core"},{t:"and",type:"conn",note:"Conector de ADIÇÃO."},{t:"there are no clouds",type:"core"},{t:"in the sky.",type:"mod"}], pt:"O sol está brilhando, e não há nuvens no céu."},
+      {chunks:[{t:"It is warm",type:"core"},{t:"but",type:"conn",note:"Conector de CONTRASTE — adiciona uma ressalva."},{t:"not too hot —",type:"core"},{t:"around 25 degrees.",type:"mod"}], pt:"Está quente mas não demais — cerca de 25 graus."},
+      {chunks:[{t:"However,",type:"conn",note:"Conector de CONTRASTE formal — indica que uma ideia oposta vem a seguir."},{t:"the forecast says",type:"core"},{t:"it is going to rain",type:"core"},{t:"tomorrow.",type:"mod"}], pt:"No entanto, a previsão diz que vai chover amanhã."},
+      {chunks:[{t:"So",type:"conn",note:"Conector de CONSEQUÊNCIA."},{t:"I am going to enjoy today",type:"core"},{t:"and",type:"conn",note:"Conector de ADIÇÃO."},{t:"spend some time outside.",type:"core"}], pt:"Então vou aproveitar hoje e passar um tempo ao ar livre."},
+      {chunks:[{t:"I am going to walk",type:"core"},{t:"in the park",type:"mod"},{t:"with my dog",type:"mod"},{t:"this afternoon.",type:"mod"}], pt:"Vou caminhar no parque com meu cachorro esta tarde."},
+      {chunks:[{t:"Tomorrow,",type:"mod"},{t:"I will probably stay at home.",type:"core"}], pt:"Amanhã, provavelmente vou ficar em casa."}
+    ],
+    questions: [
+      {q:"What is the weather like today?", opts:["Rainy","Cloudy","Beautiful and sunny","Snowy"], a:2},
+      {q:"What does the forecast say about tomorrow?", opts:["It will be sunny","It is going to rain","It will snow","It will be cold"], a:1},
+      {q:"What is the person going to do this afternoon?", opts:["Stay at home","Go to work","Walk in the park with the dog","Read a book"], a:2}
+    ]
+  },
+  {
+    id: "r5",
+    title: "Working from Home",
+    subtitle: "Trabalhando de casa",
+    level: "Pré-intermediário",
+    levelColor: "#f59e0b",
+    icon: "💼",
+    sentences: [
+      {chunks:[{t:"Since 2020,",type:"mod"},{t:"many people have started",type:"core"},{t:"working from home.",type:"core"}], pt:"Desde 2020, muitas pessoas começaram a trabalhar de casa."},
+      {chunks:[{t:"This change has brought",type:"core"},{t:"both benefits and challenges.",type:"core"}], pt:"Essa mudança trouxe tanto benefícios quanto desafios."},
+      {chunks:[{t:"On the one hand,",type:"conn",note:"Expressão de organização — apresenta o primeiro lado do argumento."},{t:"workers save time and money",type:"core"},{t:"because",type:"conn",note:"Conector de CAUSA."},{t:"they don't have to commute.",type:"core"}], pt:"Por um lado, os trabalhadores economizam tempo e dinheiro porque não precisam se deslocar."},
+      {chunks:[{t:"They can also have",type:"core"},{t:"more flexible schedules.",type:"core"}], pt:"Eles também podem ter horários mais flexíveis."},
+      {chunks:[{t:"On the other hand,",type:"conn",note:"Expressão de organização — apresenta o lado oposto do argumento."},{t:"some people feel isolated",type:"core"},{t:"because",type:"conn",note:"Conector de CAUSA."},{t:"they don't see their colleagues",type:"core"},{t:"every day.",type:"mod"}], pt:"Por outro lado, algumas pessoas se sentem isoladas porque não veem seus colegas todos os dias."},
+      {chunks:[{t:"In addition,",type:"conn",note:"Conector de ADIÇÃO formal — 'além disso'."},{t:"it can be difficult",type:"core"},{t:"to separate work",type:"core"},{t:"from personal life.",type:"mod"}], pt:"Além disso, pode ser difícil separar o trabalho da vida pessoal."},
+      {chunks:[{t:"For this reason,",type:"conn",note:"Conector de CONSEQUÊNCIA — 'por essa razão'."},{t:"companies are now offering",type:"core"},{t:"hybrid models",type:"core"},{t:"where",type:"ref",note:"Referência a 'hybrid models' — 'onde' aponta para o modelo híbrido."},{t:"employees go to the office",type:"core"},{t:"a few days a week.",type:"mod"}], pt:"Por essa razão, as empresas estão agora oferecendo modelos híbridos, em que os funcionários vão ao escritório alguns dias por semana."}
+    ],
+    questions: [
+      {q:"When did many people start working from home?", opts:["In 2018","In 2019","In 2020","In 2022"], a:2},
+      {q:"What is one benefit mentioned?", opts:["Higher salary","Saving time and money","More meetings","Better coffee"], a:1},
+      {q:"What is one challenge mentioned?", opts:["Isolation and difficulty separating work from life","Too much money","Working too many hours","Traffic jams"], a:0},
+      {q:"What are companies offering now?", opts:["Only office work","Only home work","Hybrid models","Longer vacations"], a:2}
+    ]
+  },
+  {
+    id: "r6",
+    title: "Social Media",
+    subtitle: "Redes sociais",
+    level: "Pré-intermediário",
+    levelColor: "#f59e0b",
+    icon: "📱",
+    sentences: [
+      {chunks:[{t:"Social media has changed",type:"core"},{t:"the way we communicate.",type:"core"}], pt:"As redes sociais mudaram a forma como nos comunicamos."},
+      {chunks:[{t:"Although",type:"conn",note:"Conector de CONCESSÃO — introduz uma ideia que será parcialmente contrariada."},{t:"it allows us to connect",type:"core"},{t:"with people around the world,",type:"mod"},{t:"it also has negative effects.",type:"core"}], pt:"Embora nos permita conectar com pessoas ao redor do mundo, também tem efeitos negativos."},
+      {chunks:[{t:"For example,",type:"conn",note:"Conector de EXEMPLIFICAÇÃO — introduz um caso concreto."},{t:"many teenagers spend hours",type:"core"},{t:"scrolling through their feeds,",type:"mod"},{t:"which",type:"ref",note:"Referência a 'scrolling through feeds' — 'o que' aponta para essa ação."},{t:"can lead to anxiety",type:"core"},{t:"and",type:"conn",note:"Conector de ADIÇÃO."},{t:"low self-esteem.",type:"core"}], pt:"Por exemplo, muitos adolescentes passam horas rolando seus feeds, o que pode levar a ansiedade e baixa autoestima."},
+      {chunks:[{t:"In addition,",type:"conn",note:"Conector de ADIÇÃO formal."},{t:"fake news spreads quickly",type:"core"},{t:"on these platforms,",type:"mod"},{t:"and",type:"conn",note:"Conector de ADIÇÃO."},{t:"it",type:"ref",note:"Referência a 'fake news' — 'it' se refere às notícias falsas."},{t:"is often difficult",type:"core"},{t:"to know what is true.",type:"core"}], pt:"Além disso, notícias falsas se espalham rapidamente nessas plataformas, e muitas vezes é difícil saber o que é verdade."},
+      {chunks:[{t:"However,",type:"conn",note:"Conector de CONTRASTE — introduz a outra face do argumento."},{t:"some experts believe",type:"core"},{t:"that if we teach young people",type:"core"},{t:"how to use social media responsibly,",type:"mod"},{t:"we can minimize the risks.",type:"core"}], pt:"No entanto, alguns especialistas acreditam que, se ensinarmos os jovens a usar as redes sociais com responsabilidade, podemos minimizar os riscos."},
+      {chunks:[{t:"Therefore,",type:"conn",note:"Conector de CONCLUSÃO — 'portanto'."},{t:"digital education is becoming",type:"core"},{t:"more important than ever.",type:"core"}], pt:"Portanto, a educação digital está se tornando mais importante do que nunca."}
+    ],
+    questions: [
+      {q:"What positive aspect of social media is mentioned?", opts:["Making money","Connecting with people around the world","Replacing school","Faster internet"], a:1},
+      {q:"What negative effect is mentioned for teenagers?", opts:["Losing money","Anxiety and low self-esteem","Bad grades","Missing school"], a:1},
+      {q:"What do some experts believe?", opts:["We should ban social media","We should teach young people to use it responsibly","Teenagers should not use phones","Social media is always harmful"], a:1}
+    ]
+  },
+  {
+    id: "r7",
+    title: "My Trip to London",
+    subtitle: "Minha viagem a Londres",
+    level: "Intermediário",
+    levelColor: "#a78bfa",
+    icon: "✈️",
+    sentences: [
+      {chunks:[{t:"Last summer,",type:"mod"},{t:"I had the opportunity",type:"core"},{t:"to visit London",type:"core"},{t:"for the first time.",type:"mod"}], pt:"No verão passado, tive a oportunidade de visitar Londres pela primeira vez."},
+      {chunks:[{t:"I had been dreaming",type:"core"},{t:"about this trip",type:"mod"},{t:"for years,",type:"mod"},{t:"so",type:"conn",note:"Conector de CONSEQUÊNCIA."},{t:"I was extremely excited.",type:"core"}], pt:"Eu estava sonhando com essa viagem há anos, então estava extremamente animado."},
+      {chunks:[{t:"When I arrived,",type:"mod"},{t:"the first thing I noticed",type:"core"},{t:"was the impressive architecture —",type:"core"},{t:"buildings",type:"core"},{t:"that",type:"ref",note:"Referência a 'buildings' — 'que' aponta para os edifícios."},{t:"had stood for centuries",type:"core"},{t:"next to modern skyscrapers.",type:"mod"}], pt:"Quando cheguei, a primeira coisa que notei foi a arquitetura impressionante — prédios que existiam há séculos ao lado de arranha-céus modernos."},
+      {chunks:[{t:"I visited the British Museum,",type:"core"},{t:"which",type:"ref",note:"Referência ao 'British Museum' — 'que' aponta para o museu."},{t:"has an incredible collection",type:"core"},{t:"of artifacts from around the world.",type:"mod"}], pt:"Visitei o Museu Britânico, que tem uma coleção incrível de artefatos de todo o mundo."},
+      {chunks:[{t:"One of the highlights was seeing",type:"core"},{t:"the Rosetta Stone,",type:"core"},{t:"something",type:"ref",note:"Referência à 'Rosetta Stone' — 'algo' aponta para a pedra."},{t:"I had only seen in books.",type:"core"}], pt:"Um dos pontos altos foi ver a Pedra de Roseta, algo que eu só tinha visto em livros."},
+      {chunks:[{t:"Although",type:"conn",note:"Conector de CONCESSÃO."},{t:"the weather was often rainy,",type:"core"},{t:"the experience was unforgettable.",type:"core"}], pt:"Embora o tempo estivesse frequentemente chuvoso, a experiência foi inesquecível."},
+      {chunks:[{t:"If",type:"conn",note:"Conector CONDICIONAL — introduz uma hipótese."},{t:"I had more time,",type:"core"},{t:"I would have stayed",type:"core"},{t:"another week.",type:"mod"}], pt:"Se eu tivesse mais tempo, teria ficado outra semana."}
+    ],
+    questions: [
+      {q:"When did the person visit London?", opts:["Last winter","Last summer","Last year in spring","Two years ago"], a:1},
+      {q:"What did the person notice first?", opts:["The food","The people","The impressive architecture","The weather"], a:2},
+      {q:"What was a highlight of the trip?", opts:["Seeing the Rosetta Stone","Taking a bus tour","Eating fish and chips","Meeting the Queen"], a:0},
+      {q:"Would the person have stayed longer?", opts:["No, he/she was tired","Yes, if they had more time","No, it was raining","Yes, but the hotel was full"], a:1}
+    ]
+  },
+  {
+    id: "r8",
+    title: "The Future of AI",
+    subtitle: "O futuro da IA",
+    level: "Intermediário",
+    levelColor: "#a78bfa",
+    icon: "🤖",
+    sentences: [
+      {chunks:[{t:"Artificial intelligence is transforming the world",type:"core"},{t:"at an unprecedented pace.",type:"mod"}], pt:"A inteligência artificial está transformando o mundo em um ritmo sem precedentes."},
+      {chunks:[{t:"Tasks",type:"core"},{t:"that",type:"ref",note:"Referência a 'tasks' — 'que' aponta para as tarefas."},{t:"were once performed exclusively by humans",type:"core"},{t:"are now being automated",type:"core"},{t:"by machines.",type:"mod"}], pt:"Tarefas que antes eram realizadas exclusivamente por humanos agora estão sendo automatizadas por máquinas."},
+      {chunks:[{t:"While",type:"conn",note:"Conector de CONTRASTE simultâneo — 'enquanto'."},{t:"some people fear",type:"core"},{t:"that AI will eliminate jobs,",type:"core"},{t:"others argue",type:"core"},{t:"that",type:"ref",note:"Referência à ideia anterior — 'que' introduz a nova visão em contraste."},{t:"it will create new opportunities",type:"core"},{t:"that we cannot yet imagine.",type:"mod"}], pt:"Enquanto algumas pessoas temem que a IA elimine empregos, outras argumentam que ela criará novas oportunidades que ainda não podemos imaginar."},
+      {chunks:[{t:"It is estimated",type:"core"},{t:"that by 2030,",type:"mod"},{t:"millions of jobs will have been affected",type:"core"},{t:"by automation.",type:"mod"}], pt:"Estima-se que até 2030, milhões de empregos terão sido afetados pela automação."},
+      {chunks:[{t:"However,",type:"conn",note:"Conector de CONTRASTE."},{t:"the full impact of this technology",type:"core"},{t:"is still unknown.",type:"core"}], pt:"No entanto, o impacto total dessa tecnologia ainda é desconhecido."},
+      {chunks:[{t:"What is clear",type:"core"},{t:"is",type:"core"},{t:"that",type:"ref",note:"Referência a 'what is clear' — 'que' aponta para a ideia principal."},{t:"education systems must adapt",type:"core"},{t:"to prepare people for a future",type:"mod"},{t:"in which",type:"ref",note:"Referência a 'a future' — 'na qual' aponta para o futuro."},{t:"adaptability and creativity",type:"core"},{t:"will be more valuable than ever.",type:"core"}], pt:"O que é claro é que os sistemas educacionais devem se adaptar para preparar as pessoas para um futuro no qual a adaptabilidade e a criatividade serão mais valiosas do que nunca."}
+    ],
+    questions: [
+      {q:"What is being automated?", opts:["Only factory jobs","Tasks once performed by humans","Only driving","Only cooking"], a:1},
+      {q:"What do some people fear?", opts:["That AI will eliminate jobs","That AI will be too slow","That AI is too expensive","That AI will stop working"], a:0},
+      {q:"What is estimated about 2030?", opts:["AI will disappear","Millions of jobs will have been affected","Nobody will work","Only doctors will work"], a:1},
+      {q:"What must education systems do?", opts:["Ban AI","Adapt to prepare people for the future","Fire all teachers","Ignore AI"], a:1}
+    ]
+  }
+];
+
+/* =========================================================
    QUIZ DE GRAMÁTICA
    ========================================================= */
 const quizQuestions = [
@@ -741,17 +1087,17 @@ function gradeCard(phraseId, grade){
   const entry = srs[phraseId] || {level: 0, next: todayStr(), seen: 0};
   entry.seen = (entry.seen || 0) + 1;
 
-  if(grade === 0){ // Não sei
+  if(grade === 0){
     entry.level = 0;
-    entry.next = todayStr(); // revisar hoje mesmo
-  } else if(grade === 1){ // Difícil
+    entry.next = todayStr();
+  } else if(grade === 1){
     entry.level = Math.max(0, entry.level - 1);
     entry.next = daysFromNow(1);
-  } else if(grade === 2){ // Médio
+  } else if(grade === 2){
     entry.level = Math.min(5, entry.level + 1);
     const days = [0, 1, 3, 7, 15, 30][entry.level] || 30;
     entry.next = daysFromNow(days);
-  } else { // Fácil
+  } else {
     entry.level = Math.min(5, entry.level + 2);
     const days = [0, 2, 5, 10, 20, 40][entry.level] || 40;
     entry.next = daysFromNow(days);
@@ -813,22 +1159,56 @@ function getDueCount(){
   }).length;
 }
 
+/* ============ READING PROGRESS ============ */
+function loadReadingProgress(){
+  try { return JSON.parse(localStorage.getItem('ef_reading') || '{}'); } catch(e){ return {}; }
+}
+function saveReadingProgress(data){
+  localStorage.setItem('ef_reading', JSON.stringify(data));
+}
+function markTextRead(textId){
+  const prog = loadReadingProgress();
+  prog[textId] = { read: true, date: todayStr() };
+  saveReadingProgress(prog);
+}
+function isTextRead(textId){
+  return !!loadReadingProgress()[textId];
+}
+function getReadingStats(){
+  const prog = loadReadingProgress();
+  const textsRead = Object.keys(prog).filter(id=>prog[id].read).length;
+  let totalQ = 0, correctQ = 0;
+  Object.keys(prog).forEach(id=>{
+    totalQ += prog[id].totalQ || 0;
+    correctQ += prog[id].correctQ || 0;
+  });
+  return { textsRead, totalQ, correctQ };
+}
+function recordReadingQuestions(textId, correct, total){
+  const prog = loadReadingProgress();
+  prog[textId] = prog[textId] || { read: false };
+  prog[textId].correctQ = Math.max(prog[textId].correctQ || 0, correct);
+  prog[textId].totalQ = total;
+  saveReadingProgress(prog);
+}
+
 function updateGlobalPills(){
   document.getElementById('streakNum').textContent = getStreak();
   document.getElementById('masteredNum').textContent = getMasteredCount();
-  // Home stats
   const ids = ['homeStudied','homeMastered','homeDue'];
   if(document.getElementById('homeStudied')){
     document.getElementById('homeStudied').textContent = getSeenCount();
     document.getElementById('homeMastered').textContent = getMasteredCount();
     document.getElementById('homeDue').textContent = getDueCount();
   }
-  // Stats page
   if(document.getElementById('stStreak')){
     document.getElementById('stStreak').textContent = getStreak();
     document.getElementById('stSeen').textContent = getSeenCount();
     document.getElementById('stMastered').textContent = getMasteredCount();
     document.getElementById('stDue').textContent = getDueCount();
+    const rs = getReadingStats();
+    document.getElementById('stTextsRead').textContent = rs.textsRead;
+    document.getElementById('stReadingQ').textContent = rs.correctQ;
     renderStatsByCat();
   }
   renderCatGrid();
@@ -848,6 +1228,7 @@ navButtons.forEach(btn=>{
     if(btn.dataset.page === 'home') setPhraseOfDay();
     if(btn.dataset.page === 'stats') updateGlobalPills();
     if(btn.dataset.page === 'learn') { backToPicker(); renderCatGrid(); }
+    if(btn.dataset.page === 'reading') { closeReading(); renderReadingList(); }
   });
 });
 
@@ -899,7 +1280,6 @@ let cardRevealed = false;
 function startCategory(catId){
   const cat = categories.find(c=>c.id===catId);
   if(!cat) return;
-  // Ordena: primeiro as que precisam revisão, depois as novas
   const srs = loadSRS();
   const phrases = allPhrases.filter(p=>p.catId===catId);
   deck = phrases.slice().sort((a,b)=>{
@@ -920,7 +1300,6 @@ function startReview(){
     return e && e.seen > 0 && isDue(e) && e.level < 5;
   });
   if(deck.length === 0){
-    // Nada para revisar: pega todas que já viu, mas embaralhadas
     const seen = allPhrases.filter(p => srs[p.id] && srs[p.id].seen > 0);
     if(seen.length === 0){
       alert('Você ainda não estudou nenhuma frase. Escolha uma categoria primeiro!');
@@ -965,8 +1344,6 @@ function renderLearnCard(){
   document.getElementById('gradeBtns').style.display = 'grid';
   document.getElementById('flashcard').classList.remove('flipped');
   cardRevealed = false;
-
-  // Esconde grade até virar
   document.getElementById('gradeBtns').style.opacity = '0.35';
   document.getElementById('gradeBtns').style.pointerEvents = 'none';
 }
@@ -991,7 +1368,6 @@ function grade(g){
   gradeCard(p.id, g);
   deckIdx++;
   if(g === 0){
-    // "Não sei": reencaixa no fim deste baralho para reforço imediato
     deck.push(p);
     document.getElementById('learnTotal').textContent = deck.length;
   }
@@ -1005,6 +1381,256 @@ function skipCard(){
     return;
   }
   renderLearnCard();
+}
+
+/* =========================================================
+   READING MODE
+   ========================================================= */
+let currentText = null;
+let currentTextAnswers = {};
+
+function renderReadingList(){
+  const wrap = document.getElementById('readingTextsList');
+  if(!wrap) return;
+  wrap.innerHTML = '';
+  readingTexts.forEach(t=>{
+    const read = isTextRead(t.id);
+    const card = document.createElement('div');
+    card.className = 'text-list-card';
+    card.onclick = ()=> openReading(t.id);
+    const words = t.sentences.reduce((acc,s)=>acc + s.chunks.map(c=>c.t).join(' ').split(/\s+/).length, 0);
+    card.innerHTML = `
+      <div class="tlc-icon">${t.icon}</div>
+      <div class="tlc-body">
+        <div class="tlc-title">${t.title}</div>
+        <div class="tlc-sub">${t.subtitle}</div>
+        <div class="tlc-meta">
+          <span class="level-badge" style="background:${t.levelColor}22;color:${t.levelColor};">${t.level}</span>
+          <span class="tlc-sub">${t.sentences.length} frases · ~${words} palavras</span>
+        </div>
+      </div>
+      ${read ? '<div class="tlc-check">✅</div>' : ''}
+    `;
+    wrap.appendChild(card);
+  });
+}
+
+function openReading(textId){
+  const text = readingTexts.find(t=>t.id===textId);
+  if(!text) return;
+  currentText = text;
+  currentTextAnswers = {};
+
+  document.getElementById('readingList').style.display = 'none';
+  document.getElementById('readingView').style.display = 'block';
+  window.scrollTo({top:0, behavior:'smooth'});
+
+  renderReadingText(text);
+  renderReadingQuestions(text);
+
+  // Reset toggles
+  document.getElementById('readingText').classList.add('chunks-on');
+  document.getElementById('readingText').classList.remove('chunks-off');
+  document.getElementById('readingText').classList.remove('translations-on');
+  document.getElementById('toggleChunks').classList.add('active');
+  document.getElementById('toggleTranslations').classList.remove('active');
+  document.getElementById('toggleAutoPlay').classList.remove('active');
+  document.getElementById('markReadBtn').style.display = isTextRead(textId) ? 'none' : 'block';
+}
+
+function renderReadingText(text){
+  const box = document.getElementById('readingText');
+  let html = `
+    <div class="rt-title">${text.icon} ${text.title}</div>
+    <div class="rt-sub">${text.subtitle} · <span class="level-badge" style="background:${text.levelColor}22;color:${text.levelColor};">${text.level}</span></div>
+  `;
+
+  text.sentences.forEach((s, sIdx) => {
+    const chunksHtml = s.chunks.map((c, cIdx) => {
+      const note = c.note ? `data-note="${escapeAttr(c.note)}"` : '';
+      const clickable = c.note ? 'has-note' : '';
+      return `<span class="chunk ${c.type} ${clickable}" ${note} onclick="handleChunkClick(event, this)">${c.t}</span>`;
+    }).join(' ');
+
+    const audioText = s.chunks.map(c=>c.t).join(' ').replace(/"/g,'&quot;');
+
+    html += `
+      <div class="sentence-block" data-sidx="${sIdx}">
+        <span class="sentence-text">${chunksHtml}</span>
+        <button class="sentence-audio" onclick="speak('${audioText}')">🔊</button>
+        <div class="sentence-translation">${s.pt}</div>
+        <div class="sentence-note" id="note_${sIdx}"></div>
+      </div>
+    `;
+  });
+
+  box.innerHTML = html;
+}
+
+function escapeAttr(str){
+  return str.replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+}
+
+function handleChunkClick(event, el){
+  event.stopPropagation();
+  const note = el.dataset.note;
+  if(!note) return;
+  const block = el.closest('.sentence-block');
+  if(!block) return;
+  const noteDiv = block.querySelector('.sentence-note');
+  if(!noteDiv) return;
+  // Toggle: se já mostra esta mesma nota, esconde
+  if(noteDiv.classList.contains('show') && noteDiv.dataset.activeNote === note){
+    noteDiv.classList.remove('show');
+    noteDiv.dataset.activeNote = '';
+    noteDiv.textContent = '';
+    return;
+  }
+  noteDiv.textContent = '💡 ' + note;
+  noteDiv.classList.add('show');
+  noteDiv.dataset.activeNote = note;
+}
+
+function toggleChunks(){
+  const el = document.getElementById('readingText');
+  const btn = document.getElementById('toggleChunks');
+  if(el.classList.contains('chunks-off')){
+    el.classList.remove('chunks-off');
+    btn.classList.add('active');
+  } else {
+    el.classList.add('chunks-off');
+    btn.classList.remove('active');
+  }
+}
+
+function toggleTranslations(){
+  const el = document.getElementById('readingText');
+  const btn = document.getElementById('toggleTranslations');
+  el.classList.toggle('translations-on');
+  btn.classList.toggle('active');
+}
+
+let autoPlayTimer = null;
+let autoPlayActive = false;
+function toggleAutoPlay(){
+  const btn = document.getElementById('toggleAutoPlay');
+  if(autoPlayActive){
+    if(autoPlayTimer) clearTimeout(autoPlayTimer);
+    window.speechSynthesis.cancel();
+    autoPlayActive = false;
+    btn.classList.remove('active');
+    btn.textContent = '▶️ Auto-play';
+    return;
+  }
+  if(!currentText) return;
+  autoPlayActive = true;
+  btn.classList.add('active');
+  btn.textContent = '⏸️ Parar';
+
+  let i = 0;
+  const playNext = ()=>{
+    if(!autoPlayActive || i >= currentText.sentences.length){
+      autoPlayActive = false;
+      btn.classList.remove('active');
+      btn.textContent = '▶️ Auto-play';
+      return;
+    }
+    const s = currentText.sentences[i];
+    const text = s.chunks.map(c=>c.t).join(' ');
+    speak(text, 0.85);
+    const words = text.split(/\s+/).length;
+    const delay = Math.max(2500, words * 380);
+    i++;
+    autoPlayTimer = setTimeout(playNext, delay);
+  };
+  playNext();
+}
+
+function renderReadingQuestions(text){
+  const box = document.getElementById('rqBox');
+  box.innerHTML = '';
+  document.getElementById('markReadBtn').style.display = 'none';
+
+  text.questions.forEach((q, qIdx)=>{
+    const qBox = document.createElement('div');
+    qBox.className = 'rq-box';
+    qBox.innerHTML = `
+      <div class="rq-num">Pergunta ${qIdx+1}</div>
+      <div class="rq-text">${q.q}</div>
+      <div class="rq-opts" id="rqOpts_${qIdx}"></div>
+      <div class="rq-feedback" id="rqFb_${qIdx}"></div>
+    `;
+    box.appendChild(qBox);
+
+    const optsBox = qBox.querySelector(`#rqOpts_${qIdx}`);
+    q.opts.forEach((opt, oIdx)=>{
+      const b = document.createElement('button');
+      b.className = 'rq-opt';
+      b.textContent = opt;
+      b.onclick = ()=> answerReadingQ(text, qIdx, oIdx, b);
+      optsBox.appendChild(b);
+    });
+  });
+
+  // Se já foi respondido antes, mostra estado
+  if(isTextRead(text.id)){
+    document.getElementById('markReadBtn').style.display = 'none';
+  }
+}
+
+function answerReadingQ(text, qIdx, chosen, btn){
+  if(currentTextAnswers[qIdx] !== undefined) return;
+  currentTextAnswers[qIdx] = chosen;
+  const q = text.questions[qIdx];
+  const optsBox = btn.parentElement;
+  const all = optsBox.querySelectorAll('.rq-opt');
+  all.forEach(b=>b.disabled = true);
+  const fb = document.getElementById('rqFb_' + qIdx);
+
+  if(chosen === q.a){
+    btn.classList.add('correct');
+    fb.className = 'rq-feedback show ok';
+    fb.textContent = '✅ Correto!';
+  } else {
+    btn.classList.add('wrong');
+    all[q.a].classList.add('correct');
+    fb.className = 'rq-feedback show err';
+    fb.textContent = '❌ Resposta correta: ' + q.opts[q.a];
+  }
+
+  // Verifica se todas foram respondidas
+  const answered = Object.keys(currentTextAnswers).length;
+  if(answered === text.questions.length){
+    let correct = 0;
+    text.questions.forEach((qq, i)=>{
+      if(currentTextAnswers[i] === qq.a) correct++;
+    });
+    recordReadingQuestions(text.id, correct, text.questions.length);
+    touchStudyDay();
+    document.getElementById('markReadBtn').style.display = 'block';
+    document.getElementById('markReadBtn').textContent = `✅ Marcar como lido (${correct}/${text.questions.length} acertos)`;
+    updateGlobalPills();
+  }
+}
+
+function markAsRead(){
+  if(!currentText) return;
+  markTextRead(currentText.id);
+  touchStudyDay();
+  updateGlobalPills();
+  document.getElementById('markReadBtn').style.display = 'none';
+  alert('🎉 Texto marcado como lido! Continue com o próximo.');
+}
+
+function closeReading(){
+  if(autoPlayActive){
+    autoPlayActive = false;
+    if(autoPlayTimer) clearTimeout(autoPlayTimer);
+    window.speechSynthesis.cancel();
+  }
+  document.getElementById('readingView').style.display = 'none';
+  document.getElementById('readingList').style.display = 'block';
+  currentText = null;
 }
 
 /* =========================================================
@@ -1093,7 +1719,6 @@ function renderListenQuestion(){
   document.getElementById('lNum').textContent = listenIdx + 1;
   document.getElementById('lScore').textContent = listenScore;
 
-  // 4 opções: a correta + 3 distratores
   const distractors = shuffle(allPhrases.filter(p=>p.id !== q.id)).slice(0, 3);
   const opts = shuffle([q, ...distractors]);
 
@@ -1113,7 +1738,6 @@ function renderListenQuestion(){
     box.appendChild(b);
   });
 
-  // Auto-toca
   setTimeout(()=>speak(q.en), 300);
 }
 
@@ -1285,10 +1909,12 @@ function renderStatsByCat(){
 }
 
 function resetAll(){
-  if(!confirm('Apagar todo o progresso? Esta ação não pode ser desfeita.')) return;
+  if(!confirm('Apagar todo o progresso (frases + leitura)? Esta ação não pode ser desfeita.')) return;
   localStorage.removeItem('ef_srs');
   localStorage.removeItem('ef_stats');
+  localStorage.removeItem('ef_reading');
   updateGlobalPills();
+  renderReadingList();
   alert('Progresso apagado!');
 }
 
@@ -1298,6 +1924,7 @@ function resetAll(){
 setPhraseOfDay();
 renderCatGrid();
 renderDialogueList();
+renderReadingList();
 updateGlobalPills();
 </script>
 </body>
